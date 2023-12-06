@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ba4twvakjqpni"]
+
+[ext_resource type="Texture2D" uid="uid://da4jad8tih5mo" path="res://art/Blue_witch/B_witch_idle.png" id="1_srmlo"]
+
+[node name="Player" type="CharacterBody2D"]
+texture_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_srmlo")
+vframes = 7

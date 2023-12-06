@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://cxv2bh3mobel4"]
+
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_8bdo7"]
+[ext_resource type="Texture2D" uid="uid://boaf0neo8qfat" path="res://art/Blue_witch/B_witch_idle.png" id="2_aas1r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1pjf"]
+atlas = ExtResource("2_aas1r")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1atws"]
+atlas = ExtResource("2_aas1r")
+region = Rect2(0, 48, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kipnf"]
+atlas = ExtResource("2_aas1r")
+region = Rect2(0, 96, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cfxv"]
+atlas = ExtResource("2_aas1r")
+region = Rect2(0, 144, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oyoxf"]
+atlas = ExtResource("2_aas1r")
+region = Rect2(0, 192, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4yawq"]
+atlas = ExtResource("2_aas1r")
+region = Rect2(0, 240, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_atnim"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1pjf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1atws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kipnf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cfxv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oyoxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4yawq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mrwm6"]
+size = Vector2(15, 7)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_8bdo7")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_atnim")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 13.5)
+shape = SubResource("RectangleShape2D_mrwm6")
