@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal health_changed(max_hp : int, hp : int)
+
 # Player properties
 var max_hp : int = 100
 var hp : int = max_hp
@@ -61,6 +63,7 @@ func take_damage(damage: int):
 
 	print("Player took damage:", final_damage)
 	print_stats()
+	health_changed.emit(max_hp, hp)
 
 	if hp <= 0:
 		hp = 0

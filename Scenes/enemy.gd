@@ -15,6 +15,7 @@ func take_damage(damage: int):
 
 	if hp <= 0:
 		hp = 0
+	
 		
 func print_stats():
 	print("Hp: ", hp, "/", max_hp)
@@ -22,7 +23,7 @@ func print_stats():
 	print("Attack :", attack)
 	
 func takeDamage(damage:int):
-	hp = 
+	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
@@ -36,3 +37,4 @@ func _ready():
 func _on_body_entered(body):
 	if body.is_in_group("player"):
 		get_tree().change_scene_to_file("res://Scenes/combat.tscn")
+		print("Entered")

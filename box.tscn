@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ene2ht811e5e"]
+
+[ext_resource type="PackedScene" uid="uid://bar2ewin24wxm" path="res://item.tscn" id="1_m5hhs"]
+[ext_resource type="Texture2D" uid="uid://bt08dduahowoy" path="res://art/Item Traps/PushBox.png" id="2_m2xo1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_igxhb"]
+resource_local_to_scene = true
+size = Vector2(16, 16)
+
+[node name="Item" instance=ExtResource("1_m5hhs")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_igxhb")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_m2xo1")
