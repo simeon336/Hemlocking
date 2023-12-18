@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://xwt6hcoxhf8a"]
+
+[ext_resource type="PackedScene" uid="uid://bc2bqjddpdbwu" path="res://Scenes/enemy_group.tscn" id="1_cc2ip"]
+[ext_resource type="PackedScene" uid="uid://dl1aswnamdxbt" path="res://Scenes/player_group.tscn" id="2_57n33"]
+
+[node name="BattleScene" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 33.0
+offset_top = 33.0
+offset_right = 73.0
+offset_bottom = 73.0
+
+[node name="EnemyGroup" parent="." instance=ExtResource("1_cc2ip")]
+position = Vector2(206, 25)
+
+[node name="PlayerGroup" parent="." instance=ExtResource("2_57n33")]
+position = Vector2(42, 26)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Choice" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -47.0
+offset_top = -66.0
+offset_right = 23.0
+offset_bottom = 35.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.642066, 0.642066)
+
+[node name="Attack" type="Button" parent="CanvasLayer/Choice"]
+layout_mode = 2
+text = "Attack"
+
+[node name="Deffend" type="Button" parent="CanvasLayer/Choice"]
+layout_mode = 2
+disabled = true
+text = "Deffend"
+
+[node name="Run" type="Button" parent="CanvasLayer/Choice"]
+layout_mode = 2
+disabled = true
+text = "Run"
+
+[connection signal="next_player" from="EnemyGroup" to="PlayerGroup" method="_on_enemy_group_next_player"]
+[connection signal="pressed" from="CanvasLayer/Choice/Attack" to="EnemyGroup" method="_on_attack_pressed"]

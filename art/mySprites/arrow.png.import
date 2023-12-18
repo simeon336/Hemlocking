@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1uf86bwyj6ml"
-path="res://.godot/imported/as3ntran_front.png-868d29e917be0be2b9dca9fbde82d6fb.ctex"
+uid="uid://dkqeaoovgdu7n"
+path="res://.godot/imported/arrow.png-bd8a7aa66c15bb61cabae7540e61a891.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/as3ntran_front.png"
-dest_files=["res://.godot/imported/as3ntran_front.png-868d29e917be0be2b9dca9fbde82d6fb.ctex"]
+source_file="res://art/mySprites/arrow.png"
+dest_files=["res://.godot/imported/arrow.png-bd8a7aa66c15bb61cabae7540e61a891.ctex"]
 
 [params]
 

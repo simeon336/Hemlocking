@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://dl1aswnamdxbt"]
+
+[ext_resource type="Script" path="res://Scenes/player_group.gd" id="1_cv423"]
+[ext_resource type="PackedScene" uid="uid://cion06uff8ydy" path="res://Scenes/character.tscn" id="1_drlse"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k0rti"]
+load_path = "res://.godot/imported/B_witch_idle.png-9cdf3b97081b7362c9dbbcbd5139cf78.ctex"
+
+[node name="PlayerGroup" type="Node2D"]
+script = ExtResource("1_cv423")
+
+[node name="Character" parent="." instance=ExtResource("1_drlse")]
+MAX_HEALTH = 7.0
+
+[node name="Sprite2D" parent="Character" index="0"]
+texture = SubResource("CompressedTexture2D_k0rti")
+
+[node name="Character2" parent="." instance=ExtResource("1_drlse")]
+MAX_HEALTH = 7.0
+
+[node name="Sprite2D" parent="Character2" index="0"]
+texture = SubResource("CompressedTexture2D_k0rti")
+
+[node name="Character3" parent="." instance=ExtResource("1_drlse")]
+MAX_HEALTH = 7.0
+
+[node name="Sprite2D" parent="Character3" index="0"]
+texture = SubResource("CompressedTexture2D_k0rti")
+
+[node name="Character4" parent="." instance=ExtResource("1_drlse")]
+MAX_HEALTH = 7.0
+
+[node name="Sprite2D" parent="Character4" index="0"]
+texture = SubResource("CompressedTexture2D_k0rti")
+
+[editable path="Character"]
+[editable path="Character2"]
+[editable path="Character3"]
+[editable path="Character4"]
