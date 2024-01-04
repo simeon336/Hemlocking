@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://pn4fmm3na1gx"]
+[gd_scene load_steps=11 format=3 uid="uid://pn4fmm3na1gx"]
 
 [ext_resource type="PackedScene" uid="uid://c6pgt0pxnlysq" path="res://Scenes/player.tscn" id="1_6rulv"]
 [ext_resource type="Script" path="res://Scenes/world.gd" id="1_340gm"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cbd2cdshwah7t" path="res://Scenes/combat.tscn" id="2_rkacu"]
 [ext_resource type="PackedScene" uid="uid://btblhtpiefjep" path="res://Scenes/enemy.tscn" id="3_wf275"]
 [ext_resource type="Script" path="res://Scripts/ProgressBar.gd" id="4_cpvi8"]
+[ext_resource type="PackedScene" uid="uid://bfc11chvbjfw3" path="res://Scenes/pause_menu.tscn" id="7_mh2ne"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_qldrd"]
 resource_name = "collectables"
@@ -666,6 +667,16 @@ layer_2/tile_data = PackedInt32Array(196610, 720897, 0)
 position = Vector2(163, 65)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="PauseMenu" parent="Player/Camera2D" instance=ExtResource("7_mh2ne")]
+visible = false
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -59.0
+offset_top = -24.0
+offset_right = -59.0
+offset_bottom = -24.0
 
 [node name="Enemy" parent="." instance=ExtResource("3_wf275")]
 position = Vector2(97, 67)

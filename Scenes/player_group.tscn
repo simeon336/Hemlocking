@@ -10,25 +10,21 @@ load_path = "res://.godot/imported/B_witch_idle.png-9cdf3b97081b7362c9dbbcbd5139
 script = ExtResource("1_cv423")
 
 [node name="Character" parent="." instance=ExtResource("1_drlse")]
-MAX_HEALTH = 7.0
 
 [node name="Sprite2D" parent="Character" index="0"]
 texture = SubResource("CompressedTexture2D_k0rti")
 
 [node name="Character2" parent="." instance=ExtResource("1_drlse")]
-MAX_HEALTH = 7.0
 
 [node name="Sprite2D" parent="Character2" index="0"]
 texture = SubResource("CompressedTexture2D_k0rti")
 
 [node name="Character3" parent="." instance=ExtResource("1_drlse")]
-MAX_HEALTH = 7.0
 
 [node name="Sprite2D" parent="Character3" index="0"]
 texture = SubResource("CompressedTexture2D_k0rti")
 
 [node name="Character4" parent="." instance=ExtResource("1_drlse")]
-MAX_HEALTH = 7.0
 
 [node name="Sprite2D" parent="Character4" index="0"]
 texture = SubResource("CompressedTexture2D_k0rti")

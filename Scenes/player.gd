@@ -55,6 +55,7 @@ func _process(delta):
 func eat_datura():
 	hasDatura = true
 	
+	
 
 # Handle damage to the player
 func take_damage(damage: int):
