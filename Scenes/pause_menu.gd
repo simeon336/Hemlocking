@@ -1,12 +1,12 @@
 extends Control
 
-@onready var main = $"res://Scenes/world.tscn"
+signal resume
+signal quit
 
-#nameri kak da vzemesh main 
 func _on_resume_pressed():
-	main.pauseMenu()
-	
+	emit_signal("resume")
+	print("pressedd")
 
 
 func _on_quit_pressed():
-	get_tree().quit
+	emit_signal("quit")
