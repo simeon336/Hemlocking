@@ -1,12 +1,12 @@
 extends CharacterBody2D
 
-@onready var _focus = $focus
+@onready var _focus = $Focus
 @onready var progress_bar = $ProgressBar
 @onready var animation_player = $AnimationPlayer
 
-@export var MAX_HEALTH: float = 7
+@export var MAX_HEALTH: float = 100
 
-var health: float = 7:
+var health: float = 100:
 	set(value):
 		health = value
 		_update_progress_bar()
@@ -25,4 +25,8 @@ func unfocus():
 	_focus.hide()
 	
 func take_damage(value):
+	print("Player taking damage:", value)
 	health -= value
+
+func defend(value):
+	take_damage(value / 2)

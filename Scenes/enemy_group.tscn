@@ -7,9 +7,3 @@
 script = ExtResource("1_riben")
 
 [node name="Character" parent="." instance=ExtResource("2_2i3pt")]
-
-[node name="Character2" parent="." instance=ExtResource("2_2i3pt")]
-
-[node name="Character3" parent="." instance=ExtResource("2_2i3pt")]
-
-[node name="Character4" parent="." instance=ExtResource("2_2i3pt")]

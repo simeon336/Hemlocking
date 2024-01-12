@@ -48,7 +48,7 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_or1kr")
 vframes = 6
 
-[node name="focus" type="Sprite2D" parent="."]
+[node name="Focus" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(-26, 1)
 texture = ExtResource("2_xrx54")

@@ -23,5 +23,5 @@ func _on_enemy_group_next_player():
 		switch_focus(index, players.size() - 1)
 	
 func switch_focus(x,y):
-	players[x].focus
+	players[x].focus()
 	players[y].unfocus()

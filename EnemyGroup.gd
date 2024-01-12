@@ -5,7 +5,8 @@ var action_queue: Array = []
 var is_battling: bool = false
 var index: int = 0
 
-signal next_player
+signal attacked
+
 @onready var choice = $"../CanvasLayer/Choice"
 
 # Called when the node enters the scene tree for the first time.
@@ -31,7 +32,7 @@ func _process(delta):
 				
 		if Input.is_action_just_pressed("ui_accept"):
 			action_queue.push_back(index)
-			emit_signal("next_player")
+			emit_signal("attacked")
 		
 	if action_queue.size() == enemies.size() and not is_battling:
 		is_battling = true
@@ -39,7 +40,7 @@ func _process(delta):
 		
 func _action(stack):
 	for i in stack:
-		enemies[i].take_damage(1)
+		enemies[i].take_damage(10)
 		#await get_tree().create_timer(1).timeout
 	action_queue.clear()
 	is_battling = false
@@ -65,3 +66,4 @@ func _start_choosing():
 func _on_attack_pressed():
 	choice.hide()
 	_start_choosing()
+	emit_signal("attacked")
