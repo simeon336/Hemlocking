@@ -1,10 +1,16 @@
 extends Area2D
+@onready var enemy = $"."
+signal enemy_hp_changed
 
 var max_hp : int = 100
 var hp : int = max_hp
-var defense : int = 10
+var defense : int = 3
 var attack : int = 20
 var poisoned : bool = false
+
+func _ready():
+	
+	pass
 
 func take_damage(damage: int):
 	var final_damage = max(damage - defense, 0)
@@ -15,26 +21,15 @@ func take_damage(damage: int):
 
 	if hp <= 0:
 		hp = 0
-	
+	emit_signal("enemy_hp_changed")
 		
 func print_stats():
 	print("Hp: ", hp, "/", max_hp)
 	print("Defense: ", defense)
 	print("Attack :", attack)
+ 
+
 	
-func takeDamage(damage:int):
-	pass
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-# Connect the signal to the function in the _ready() function
-func _ready():
-	# Replace "Enemy" with the name of your enemy scene
-	pass
-
 
 func _on_body_entered(body):
-	if body.is_in_group("player"):
-		get_tree().change_scene_to_file("res://Scenes/battle_scene.tscn")
-		print("Entered")
+	get_tree().change_scene_to_file("res://Scenes/battle_arena.tscn")

@@ -24,5 +24,6 @@ func set_is_paused(is_paused: bool):
 func _on_resume_pressed():
 	set_is_paused(false)
 
+
 func _on_quit_pressed():
 	get_tree().quit()

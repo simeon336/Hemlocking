@@ -4,8 +4,8 @@ var enemies: Array = []
 var action_queue: Array = []
 var is_battling: bool = false
 var index: int = 0
-
-signal attacked
+var dmg = randi_range(5, 10)
+signal enemyAttacked
 
 @onready var choice = $"../CanvasLayer/Choice"
 
@@ -19,28 +19,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if not choice.visible:
-		if Input.is_action_just_pressed("ui_up"):
-			if index > 0:
-				index -= 1
-				switch_focus(index, index+1)
-				
-		if Input.is_action_just_pressed("ui_down"):
-			if index < enemies.size() - 1:
-				index += 1
-				switch_focus(index, index - 1)
-				
-		if Input.is_action_just_pressed("ui_accept"):
-			action_queue.push_back(index)
-			emit_signal("attacked")
+
+	if Input.is_action_just_pressed("ui_accept"):
+		emit_signal("enemyAttacked")
 		
 	if action_queue.size() == enemies.size() and not is_battling:
 		is_battling = true
 		_action(action_queue)
 		
 func _action(stack):
-	for i in stack:
-		enemies[i].take_damage(10)
+##	for i in stack:
+	##	enemies[i].take_damage(10)
 		#await get_tree().create_timer(1).timeout
 	action_queue.clear()
 	is_battling = false
@@ -66,4 +55,4 @@ func _start_choosing():
 func _on_attack_pressed():
 	choice.hide()
 	_start_choosing()
-	emit_signal("attacked")
+	emit_signal("enemyAttacked")

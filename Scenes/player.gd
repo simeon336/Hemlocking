@@ -5,7 +5,7 @@ signal health_changed(max_hp : int, hp : int)
 # Player properties
 var max_hp : int = 100
 var hp : int = max_hp
-var defense : int = 10
+var defense : int = 0
 var attack : int = 20
 var hasDatura : bool = false
 # Speed
@@ -50,13 +50,11 @@ func _process(delta):
 		# If no collision, simply update the position
 		position += velocity
 
-	print("Position:", position)
+	
 	
 func eat_datura():
 	hasDatura = true
 	
-	
-
 # Handle damage to the player
 func take_damage(damage: int):
 	var final_damage = max(damage - defense, 0)
@@ -68,12 +66,13 @@ func take_damage(damage: int):
 
 	if hp <= 0:
 		hp = 0
-		# Implement game over logic or respawn logic here
+	emit_signal("health_changed")
 
 # Handle healing the player
 func heal(amount: int):
 	hp = min(hp + amount, max_hp)
-
+	emit_signal("health_changed")
+	
 func eat(amount: int):
 	defense = defense + amount
 # Function to print health
@@ -83,25 +82,3 @@ func print_stats():
 	print("Attack :", attack)
 
 # Called every time the node receives an input event (mouse, keyboard, joystick, etc.)
-func _on_button_pressed():
-	take_damage(20)
-	print_stats()
-
-
-func _on_heal_pressed():
-	heal(10)
-	print_stats()
-
-
-func _on_seed_pressed():
-	eat(5)
-	print_stats()
-
-
-func _on_eat_a_root__pressed():
-	attack = attack + 5
-	defense = defense + 5
-	heal(20)
-
-
-
