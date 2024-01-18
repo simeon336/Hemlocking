@@ -36,3 +36,20 @@ offset_top = 12.0
 offset_right = 178.0
 offset_bottom = 39.0
 script = ExtResource("5_ynq70")
+
+[node name="Potion" type="Button" parent="."]
+visible = false
+offset_left = 82.0
+offset_top = 56.0
+offset_right = 204.0
+offset_bottom = 87.0
+scale = Vector2(0.426179, 0.426179)
+text = "Healing potion"
+
+[node name="Items" type="Button" parent="."]
+offset_left = 91.0
+offset_top = 80.0
+offset_right = 143.0
+offset_bottom = 111.0
+scale = Vector2(0.637631, 0.571936)
+text = "Items"

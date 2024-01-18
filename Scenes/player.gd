@@ -8,13 +8,16 @@ var hp : int = max_hp
 var defense : int = 0
 var attack : int = 20
 var hasDatura : bool = false
+var is_in_combat : bool = false
 # Speed
 @export var speed : int = 200
 func _ready():
 	pass
 # Called every frame
 func _process(delta):
-	# Player movement
+	if(get_tree().current_scene.name != "World"):
+		return
+	
 	var velocity = Vector2()
 
 	if Input.is_action_pressed("move_right"):
