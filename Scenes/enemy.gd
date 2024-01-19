@@ -1,12 +1,12 @@
 extends Area2D
 @onready var enemy = $"."
 signal enemy_hp_changed
-
 var max_hp : int = 100
 var hp : int = max_hp
 var defense : int = 3
 var attack : int = 20
 var poisoned : bool = false
+
 
 func _ready():
 	
@@ -21,6 +21,9 @@ func take_damage(damage: int):
 
 	if hp <= 0:
 		hp = 0
+		get_tree().change_scene_to_file("res://Scenes/world.tscn")
+		queue_free()
+				
 	emit_signal("enemy_hp_changed")
 		
 func print_stats():

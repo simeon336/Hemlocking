@@ -46,10 +46,18 @@ offset_bottom = 87.0
 scale = Vector2(0.426179, 0.426179)
 text = "Healing potion"
 
+[node name="Defend" type="Button" parent="."]
+offset_left = 91.0
+offset_top = 76.0
+offset_right = 156.0
+offset_bottom = 107.0
+scale = Vector2(0.532128, 0.532128)
+text = "Defend"
+
 [node name="Items" type="Button" parent="."]
 offset_left = 91.0
-offset_top = 80.0
+offset_top = 98.0
 offset_right = 143.0
-offset_bottom = 111.0
+offset_bottom = 129.0
 scale = Vector2(0.637631, 0.571936)
 text = "Items"
