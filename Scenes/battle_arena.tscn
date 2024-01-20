@@ -61,3 +61,12 @@ offset_right = 143.0
 offset_bottom = 129.0
 scale = Vector2(0.637631, 0.571936)
 text = "Items"
+
+[node name="Seed" type="Button" parent="."]
+visible = false
+offset_left = 87.0
+offset_top = 76.0
+offset_right = 174.0
+offset_bottom = 107.0
+scale = Vector2(0.474998, 0.474998)
+text = "Eat a seed"

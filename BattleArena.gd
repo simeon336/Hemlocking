@@ -6,6 +6,7 @@ extends Node2D
 @onready var itemButton = $Items
 @onready var potionButton = $Potion
 @onready var defendButton = $Defend
+@onready var seedButton = $Seed
 
 var is_player_turn : bool = true
 func _ready():
@@ -13,6 +14,7 @@ func _ready():
 	potionButton.pressed.connect(_on_potion_pressed)
 	itemButton.pressed.connect(_on_item_pressed)
 	defendButton.pressed.connect(_defend)
+	seedButton.pressed.connect(_on_seed_pressed)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -20,6 +22,7 @@ func _process(delta):
 	
 func _on_item_pressed():
 	potionButton.visible = true
+	seedButton.visible = true
 	itemButton.visible = false
 	attackButton.visible = false
 	defendButton.visible = false
@@ -27,14 +30,22 @@ func _on_item_pressed():
 func _on_potion_pressed():
 	player.heal(50)
 	potionButton.visible = false
+	seedButton.visible = false
 	itemButton.visible = true
 	attackButton.visible = true
-	defendButton.visible = true
+	defendButton.visible = true	
 	
 func _defend():
 	player.take_damage(enemy.attack/2)
 	
-
+func _on_seed_pressed():
+	player.eat(5)
+	potionButton.visible = false
+	seedButton.visible = false
+	itemButton.visible = true
+	attackButton.visible = true
+	defendButton.visible = true	
+	
 func _on_attacked():
 	enemy.take_damage(player.attack)
 	_change_turn()
