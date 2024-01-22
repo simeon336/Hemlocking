@@ -70,3 +70,21 @@ offset_right = 174.0
 offset_bottom = 107.0
 scale = Vector2(0.474998, 0.474998)
 text = "Eat a seed"
+
+[node name="Hemlock" type="Button" parent="."]
+visible = false
+offset_left = 83.0
+offset_top = 98.0
+offset_right = 202.0
+offset_bottom = 129.0
+scale = Vector2(0.455006, 0.455006)
+text = "Hemlock stem"
+
+[node name="Datura" type="Button" parent="."]
+visible = false
+offset_left = 78.0
+offset_top = 16.0
+offset_right = 185.0
+offset_bottom = 47.0
+scale = Vector2(0.637538, 0.637538)
+text = "DATURAAA!!!"

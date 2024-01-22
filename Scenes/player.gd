@@ -9,6 +9,7 @@ var defense : int = 0
 var attack : int = 20
 var hasDatura : bool = false
 var is_in_combat : bool = false
+var toxicity : float = 0
 # Speed
 @export var speed : int = 200
 func _ready():
@@ -59,7 +60,8 @@ func _process(delta):
 	
 	
 func eat_datura():
-	hasDatura = true
+	hasDatura = false
+	attack += 5
 	
 # Handle damage to the player
 func take_damage(damage: int):
@@ -79,7 +81,7 @@ func heal(amount: int):
 	hp = min(hp + amount, max_hp)
 	emit_signal("health_changed")
 	
-func eat(amount: int):
+func eat_seed(amount: int):
 	defense = defense + amount
 # Function to print health
 func print_stats():
@@ -87,4 +89,7 @@ func print_stats():
 	print("Defense: ", defense)
 	print("Attack :", attack)
 
+func eat_stem():
+	toxicity += 3.36
+	heal(20)
 # Called every time the node receives an input event (mouse, keyboard, joystick, etc.)

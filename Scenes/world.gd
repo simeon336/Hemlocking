@@ -7,16 +7,13 @@ extends Node2D
 func _ready():
 	pause_menu.resume.connect(_on_resume_pressed)
 	pause_menu.quit.connect(_on_quit_pressed)
+	enemy.enemy_died.connect(_corspe_disposal)
 
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("pause"):
 		set_is_paused(true)
-
-	if enemy.hp <= 0:
-		print("2")
-
 
 	
 func set_is_paused(is_paused: bool):
@@ -34,3 +31,6 @@ func _on_resume_pressed():
 
 func _on_quit_pressed():
 	get_tree().quit()
+
+func _corspe_disposal():
+	enemy.queue_free()
