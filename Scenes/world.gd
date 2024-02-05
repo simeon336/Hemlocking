@@ -2,20 +2,30 @@ extends Node2D
 
 @onready var pause_menu = $Player/Camera2D/PauseMenu
 @onready var enemy = $Enemy
+@onready var player = $Player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pause_menu.resume.connect(_on_resume_pressed)
 	pause_menu.quit.connect(_on_quit_pressed)
 	enemy.enemy_died.connect(_corspe_disposal)
-
-	
+	pause_menu.potion.connect(_on_potion_pressed)
+	pause_menu.seed.connect(_on_seed_pressed)
+	pause_menu.stem.connect(_on_stem_pressed)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("pause"):
 		set_is_paused(true)
 
-	
+func _on_potion_pressed():
+	player.heal(50)
+	player.print_stats()
+
+func _on_seed_pressed():
+	player.eat_seed(5)
+
+func _on_stem_pressed():
+	player.eat_stem()
 func set_is_paused(is_paused: bool):
 	print("pause")
 	if is_paused:

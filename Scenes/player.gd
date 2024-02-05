@@ -19,6 +19,7 @@ func _ready():
 	
 # Called every frame
 func _process(delta):
+	save_game()
 	if(hp <= 0):
 		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
 		
@@ -65,7 +66,7 @@ func _process(delta):
 func eat_datura():
 	hasDatura = false
 	attack += 5
-	save_game()
+	
 	
 # Handle damage to the player
 func take_damage(damage: int):
@@ -73,7 +74,6 @@ func take_damage(damage: int):
 	hp -= final_damage
 	print("Player took damage:", final_damage)
 	print_stats()
-	save_game()
 	health_changed.emit(max_hp, hp)
 
 	if hp <= 0:
@@ -83,12 +83,11 @@ func take_damage(damage: int):
 # Handle healing the player
 func heal(amount: int):
 	hp = min(hp + amount, max_hp)
-	save_game()
 	emit_signal("health_changed")
+	save_game()
 	
 func eat_seed(amount: int):
 	defense = defense + amount
-	save_game()
 # Function to print health
 func print_stats():
 	print("Hp: ", hp, "/", max_hp)
@@ -100,6 +99,7 @@ func eat_stem():
 	heal(20)
 
 func save():
+	var position_array = [position.x, position.y]
 	var save_data = {
 		"max_hp": max_hp,
 		"hp": hp,
@@ -107,9 +107,12 @@ func save():
 		"attack": attack,
 		"hasDatura": hasDatura,
 		"is_in_combat": is_in_combat,
-		"toxicity": toxicity
+		"toxicity": toxicity,
+		"position": position_array  # Convert Vector2 to array
 	}
 	return save_data
+
+
 
 func save_game():
 	var save_game = FileAccess.open("res://Scenes/savegame.json", FileAccess.WRITE)
@@ -120,24 +123,26 @@ func save_game():
 	
 func load_game():
 	if not FileAccess.file_exists("res://Scenes/savegame.json"):
-		return # Error! We don't have a save to load.
-	get_node(".").print_stats()
+		return  # Error! We don't have a save to load.
+
 	var save_game = FileAccess.open("res://Scenes/savegame.json", FileAccess.READ)
+	
 	while save_game.get_position() < save_game.get_length():
 		var json_string = save_game.get_line()
-
-		# Creates the helper class to interact with JSON
 		var json = JSON.new()
 
-		# Check if there is any error while parsing the JSON string, skip in case of failure
 		var parse_result = json.parse(json_string)
 		if not parse_result == OK:
 			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
 			continue
 
-		# Get the data from the JSON object
 		var node_data = json.get_data()
 		
+		# Update position if it exists in the saved data
+		if "position" in node_data:
+			var position_array = node_data["position"]
+			position = Vector2(position_array[0], position_array[1])  # Convert array to Vector2
+
 		player.max_hp = node_data["max_hp"]
 		player.hp = node_data["hp"]
 		player.defense = node_data["defense"]
@@ -145,5 +150,6 @@ func load_game():
 		player.hasDatura = node_data["hasDatura"]
 		player.is_in_combat = node_data["is_in_combat"]
 		player.toxicity = node_data["toxicity"]
-		# Firstly, we need to create the object and add it to the tree and set its position.
-
+		
+		player.print_stats()
+		save_game.close()

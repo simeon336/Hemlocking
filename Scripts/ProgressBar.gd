@@ -14,7 +14,7 @@ func update():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	load_game()
 
 func load_game():
 	if not FileAccess.file_exists("res://Scenes/savegame.json"):
