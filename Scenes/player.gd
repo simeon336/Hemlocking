@@ -3,7 +3,7 @@ extends CharacterBody2D
 signal health_changed(max_hp : int, hp : int)
 
 # Player properties
-var max_hp : int = 10033
+var max_hp : int = 100
 var hp : int = max_hp
 var defense : int = 0
 var attack : int = 20
@@ -16,11 +16,15 @@ var toxicity : float = 0
 @export var speed : int = 200
 func _ready():
 	load_game()
-	
+
 # Called every frame
 func _process(delta):
+	if is_in_combat == true:
+		return
 	save_game()
 	if(hp <= 0):
+		hp = max_hp
+		save_game()
 		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
 		
 	if(get_tree().current_scene.name != "World"):
@@ -61,7 +65,7 @@ func _process(delta):
 		# If no collision, simply update the position
 		position += velocity
 
-	
+
 	
 func eat_datura():
 	hasDatura = false
@@ -79,6 +83,7 @@ func take_damage(damage: int):
 	if hp <= 0:
 		hp = 0
 	emit_signal("health_changed")
+	
 
 # Handle healing the player
 func heal(amount: int):
@@ -115,27 +120,28 @@ func save():
 
 
 func save_game():
-	var save_game = FileAccess.open("res://Scenes/savegame.json", FileAccess.WRITE)
+	var save_game = FileAccess.open("res://SaveFiles/playersave.json", FileAccess.WRITE)
 	var node = get_node(".")
 	var node_data = node.call("save")
 	var json_string = JSON.stringify(node_data)
 	save_game.store_line(json_string)
 	
 func load_game():
-	if not FileAccess.file_exists("res://Scenes/savegame.json"):
+	if not FileAccess.file_exists("res://SaveFiles/playersave.json"):
 		return  # Error! We don't have a save to load.
 
-	var save_game = FileAccess.open("res://Scenes/savegame.json", FileAccess.READ)
-	
+	var save_game = FileAccess.open("res://SaveFiles/playersave.json", FileAccess.READ)
+
 	while save_game.get_position() < save_game.get_length():
 		var json_string = save_game.get_line()
 		var json = JSON.new()
-
+		
 		var parse_result = json.parse(json_string)
 		if not parse_result == OK:
 			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
 			continue
-
+			
+			
 		var node_data = json.get_data()
 		
 		# Update position if it exists in the saved data

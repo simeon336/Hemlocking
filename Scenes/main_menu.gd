@@ -1,5 +1,7 @@
 extends Control
-
+signal new_game
+signal load_game
+signal quit
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,9 +13,14 @@ func _process(delta):
 	pass
 
 
-func _on_start_button_pressed():
+func _on_new_game_button_pressed():
+	var dir = DirAccess.open("res://SaveFiles/")
+	dir.remove("res://SaveFiles/playersave.json")
 	get_tree().change_scene_to_file("res://Scenes/world.tscn")
 
+func _on_load_game_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/world.tscn")
 
+	
 func _on_quit_button_pressed():
-	get_tree().quit()
+	emit_signal("quit")

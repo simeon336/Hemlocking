@@ -17,9 +17,9 @@ func _process(delta):
 	load_game()
 
 func load_game():
-	if not FileAccess.file_exists("res://Scenes/savegame.json"):
+	if not FileAccess.file_exists("res://SaveFiles/playersave.json"):
 		return # Error! We don't have a save to load.
-	var save_game = FileAccess.open("res://Scenes/savegame.json", FileAccess.READ)
+	var save_game = FileAccess.open("res://SaveFiles/playersave.json", FileAccess.READ)
 	while save_game.get_position() < save_game.get_length():
 		var json_string = save_game.get_line()
 
