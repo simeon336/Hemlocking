@@ -49,7 +49,7 @@ func connect_signals():
 	daturaButton.pressed.connect(_on_datura_pressed)
 	hemlockButton.pressed.connect(_on_hemlock_pressed)
 	backButton.pressed.connect(_on_back_pressed)
-	
+
 
 func _process(delta):
 	handle_enemy_hp()
@@ -62,9 +62,9 @@ func handle_enemy_hp():
 	if current_enemy and current_enemy.hp <= 0:
 		player.potion += 1
 		player.stems += 2
+		player.blood_vials += 1
 		player.position = original_player_position 
 		player.save_game()
-		print("a")
 		get_tree().change_scene_to_file("res://Scenes/world.tscn")
 
 
@@ -118,7 +118,7 @@ func _defend():
 
 # Use seed
 func _on_seed_pressed():
-	player.eat_seed(5)
+	player.eat_seed()
 	_change_turn()
 
 # Attack the enemy

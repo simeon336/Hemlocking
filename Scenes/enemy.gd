@@ -19,10 +19,6 @@ func take_damage(damage: int):
 	print("Player took damage:", final_damage)
 	print_stats()
 
-	if hp <= 0:
-		hp = 0
-		save_game()
-		get_tree().change_scene_to_file("res://Scenes/world.tscn")
 	
 	emit_signal("enemy_hp_changed")
 		

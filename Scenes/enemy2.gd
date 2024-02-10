@@ -1,6 +1,7 @@
 extends Area2D
 @onready var enemy = $"."
 signal enemy2_hp_changed
+signal enemy2_died
 var max_hp : int = 150
 var hp : int = max_hp
 var defense : int = 0
@@ -22,8 +23,9 @@ func take_damage(damage: int):
 
 	if hp <= 0:
 		hp = 0
+		emit_signal("enemy2_died")
 		save_game()
-		get_tree().change_scene_to_file("res://Scenes/world.tscn")
+		get_tree().change_scene_to_file("res://Scenes/world2.tscn")
 	
 	emit_signal("enemy2_hp_changed")
 		

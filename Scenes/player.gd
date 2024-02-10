@@ -6,13 +6,14 @@ signal health_changed(max_hp : int, hp : int)
 var max_hp : int = 100
 var hp : int = max_hp
 var defense : int = 0
-var attack : int = 20
+var attack : int = 50
 var hasDatura : bool = false
 var is_in_combat : bool = false
 var toxicity : float = 0
 var seeds : int = 0
 var stems : int = 0
 var potion : int = 0
+var blood_vials : int = 0
 # Speed
 @onready var player = $"."
 
@@ -96,8 +97,8 @@ func heal(amount: int):
 	emit_signal("health_changed")
 	save_game()
 	
-func eat_seed(amount: int):
-	defense = defense + amount
+func eat_seed():
+	defense += 5
 # Function to print health
 func print_stats():
 	print("Hp: ", hp, "/", max_hp)
@@ -121,6 +122,7 @@ func save():
 		"seeds": seeds,
 		"stems": stems,
 		"potion": potion,
+		"blood_vials": blood_vials,
 		"position": position_array  # Convert Vector2 to array
 	}
 	return save_data
@@ -167,6 +169,7 @@ func load_game():
 		player.stems = node_data["stems"]
 		player.seeds = node_data["seeds"]
 		player.potion = node_data["potion"]
+		player.blood_vials = node_data["blood_vials"]
 		
 		player.print_stats()
 		save_game.close()

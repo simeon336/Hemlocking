@@ -6,6 +6,10 @@ extends Node2D
 @onready var main_menu = $MainMenu
 @onready var plant = $Plant
 @onready var harvestButton = $Harvest
+@onready var blood = $Blood
+@onready var log = $Log
+@onready var waterButton = $Water
+@onready var thirst = $Thirst
 
 var current_enemy : Node2D = null
 # Called when the node enters the scene tree for the first time.
@@ -20,6 +24,9 @@ func _ready():
 	plant.start_harvest.connect(_show_harvest)
 	plant.stop_harvest.connect(_hide_harvest)
 	harvestButton.pressed.connect(_harvest)
+	log.entered.connect(_entered_log)
+	log.exited.connect(_exited_log)
+	waterButton.pressed.connect(_on_water_pressed)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("pause"):
@@ -29,12 +36,25 @@ func _process(delta):
 		if enemy2.hp <= 0:
 			enemy2.queue_free()
 
-func _show_harvest():
-	harvestButton.visible = true
+func _on_water_pressed():
+	get_tree().change_scene_to_file("res://Scenes/world3.tscn")
 
+func _entered_log():
+	thirst.visible = true
+	if player.blood_vials > 0:
+		waterButton.visible = true
+		
+func _exited_log():
+	thirst.visible = false
+	waterButton.visible = false
+func _show_harvest():
+	if player.blood_vials > 0:
+		harvestButton.visible = true
+	else:
+		blood.visible = true
 func _hide_harvest():
 	harvestButton.visible = false
-	
+	blood.visible = false
 
 func _harvest():
 	player.stems += 2
