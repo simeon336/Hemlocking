@@ -1,5 +1,5 @@
-extends Node2D
-
+extends Node
+var enemy_num : int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

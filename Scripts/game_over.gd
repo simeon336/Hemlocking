@@ -12,4 +12,8 @@ func _process(delta):
 	pass
 
 func _on_respawn_pressed():
+	var dir = DirAccess.open("res://SaveFiles/")
+	dir.remove("res://SaveFiles/playersave.json")
+	dir.remove("res://SaveFiles/enemysave.json")
+	dir.remove("res://SaveFiles/enemy2save.json")
 	get_tree().change_scene_to_file("res://Scenes/world.tscn")

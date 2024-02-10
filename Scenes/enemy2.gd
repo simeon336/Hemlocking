@@ -1,11 +1,12 @@
 extends Area2D
 @onready var enemy = $"."
-signal enemy_hp_changed
-var max_hp : int = 100
+signal enemy2_hp_changed
+var max_hp : int = 150
 var hp : int = max_hp
 var defense : int = 0
-var attack : int = 10
+var attack : int = 20
 var poison : float = 0
+
 
 func _ready():
 	load_game()
@@ -24,7 +25,7 @@ func take_damage(damage: int):
 		save_game()
 		get_tree().change_scene_to_file("res://Scenes/world.tscn")
 	
-	emit_signal("enemy_hp_changed")
+	emit_signal("enemy2_hp_changed")
 		
 func print_stats():
 	print("Hp: ", hp, "/", max_hp)
@@ -37,7 +38,7 @@ func poison_tick(amount: float):
 	
 
 func _on_body_entered(body):
-	turns.enemy_num = 1
+	turns.enemy_num = 2
 	get_tree().change_scene_to_file("res://Scenes/battle_arena.tscn")
 
 func save():
@@ -54,17 +55,17 @@ func save():
 
 
 func save_game():
-	var save_game = FileAccess.open("res://SaveFiles/enemysave.json", FileAccess.WRITE)
+	var save_game = FileAccess.open("res://SaveFiles/enemy2save.json", FileAccess.WRITE)
 	var node = get_node(".")
 	var node_data = node.call("save")
 	var json_string = JSON.stringify(node_data)
 	save_game.store_line(json_string)
 	
 func load_game():
-	if not FileAccess.file_exists("res://SaveFiles/enemysave.json"):
+	if not FileAccess.file_exists("res://SaveFiles/enemy2save.json"):
 		return  # Error! We don't have a save to load.
 
-	var save_game = FileAccess.open("res://SaveFiles/enemysave.json", FileAccess.READ)
+	var save_game = FileAccess.open("res://SaveFiles/enemy2save.json", FileAccess.READ)
 	
 	while save_game.get_position() < save_game.get_length():
 		var json_string = save_game.get_line()
@@ -77,6 +78,10 @@ func load_game():
 
 		var node_data = json.get_data()
 		
+		# Update position if it exists in the saved data
+	#	if "position" in node_data:
+		#	var position_array = node_data["position"]
+		#	position = Vector2(position_array[0], position_array[1])  # Convert array to Vector2
 
 		max_hp = node_data["max_hp"]
 		hp = node_data["hp"]
