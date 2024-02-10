@@ -17,10 +17,14 @@ extends Node2D
 # Enemy related variables
 var current_enemy : Node2D = null
 var is_player_turn : bool = true
+var original_player_position: Vector2
 
 # Initialization
 func _ready():
 	connect_signals()
+	original_player_position = player.position
+	print(original_player_position)
+	print(player.position)
 	if turns.enemy_num == 1:
 		enemy_hp.visible = true
 		enemy.visible = true
@@ -33,6 +37,7 @@ func _ready():
 		current_enemy = enemy2	
 		player.position.x = 50
 		player.position.y = 60
+	print(player.position)
 		
 # Connect signals
 func connect_signals():
@@ -57,6 +62,9 @@ func handle_enemy_hp():
 	if current_enemy and current_enemy.hp <= 0:
 		player.potion += 1
 		player.stems += 2
+		player.position = original_player_position 
+		player.save_game()
+		print("a")
 		get_tree().change_scene_to_file("res://Scenes/world.tscn")
 
 
@@ -98,6 +106,9 @@ func _on_hemlock_pressed():
 func _on_datura_pressed():
 	if current_enemy:
 		current_enemy.take_damage(current_enemy.max_hp)
+	player.position = original_player_position
+	print(player.position)
+	player.save_game()
 
 
 # Defend against enemy's attack
@@ -121,7 +132,7 @@ func _on_attacked():
 
 # Enemy's turn
 func _enemy_turn():
-	await get_tree().create_timer(1).timeout
+	#await get_tree().create_timer(1).timeout
 	if current_enemy:
 		player.take_damage(current_enemy.attack)
 		_change_turn()
