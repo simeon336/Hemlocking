@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://btihdvmxcvrn4"]
+[gd_scene load_steps=10 format=3 uid="uid://btihdvmxcvrn4"]
 
 [ext_resource type="Script" path="res://BattleArena.gd" id="1_uhq6b"]
 [ext_resource type="PackedScene" uid="uid://c6pgt0pxnlysq" path="res://Scenes/player.tscn" id="2_xqboh"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://Scenes/EnemyHP.gd" id="5_j6iek"]
 [ext_resource type="Script" path="res://Scripts/EnemyHP.gd" id="5_ynq70"]
 [ext_resource type="PackedScene" uid="uid://c2hm180y30kjo" path="res://Scenes/enemy2.tscn" id="6_4h2ds"]
+[ext_resource type="Script" path="res://Scenes/EnemyHP3.gd" id="7_tbxev"]
+[ext_resource type="PackedScene" uid="uid://dj33v15ckjqgs" path="res://Scenes/enemy3.tscn" id="9_c5s0a"]
 
 [node name="BattleArena" type="Node2D"]
 script = ExtResource("1_uhq6b")
@@ -48,6 +50,14 @@ offset_top = 12.0
 offset_right = 178.0
 offset_bottom = 39.0
 script = ExtResource("5_ynq70")
+
+[node name="EnemyHP3" type="ProgressBar" parent="."]
+visible = false
+offset_left = 174.0
+offset_top = 15.0
+offset_right = 178.0
+offset_bottom = 42.0
+script = ExtResource("7_tbxev")
 
 [node name="Potion" type="Button" parent="."]
 visible = false
@@ -113,3 +123,16 @@ text = "Back"
 [node name="Enemy2" parent="." instance=ExtResource("6_4h2ds")]
 visible = false
 position = Vector2(177, 70)
+
+[node name="Rock" type="Button" parent="."]
+visible = false
+offset_left = 82.0
+offset_top = 114.0
+offset_right = 191.0
+offset_bottom = 145.0
+scale = Vector2(0.492128, 0.492128)
+text = "Throw a rock"
+
+[node name="Enemy3" parent="." instance=ExtResource("9_c5s0a")]
+visible = false
+position = Vector2(183, 62)

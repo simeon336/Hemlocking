@@ -11,8 +11,11 @@ extends Node2D
 @onready var backButton = $Back
 @onready var enemy = $Enemy
 @onready var enemy2 = $Enemy2
+@onready var enemy3 = $Enemy3
 @onready var enemy_hp = $EnemyHP
 @onready var enemy_hp2 = $EnemyHP2
+@onready var enemy_hp3 = $EnemyHP3
+@onready var rockButton = $Rock
 
 # Enemy related variables
 var current_enemy : Node2D = null
@@ -25,6 +28,7 @@ func _ready():
 	original_player_position = player.position
 	print(original_player_position)
 	print(player.position)
+	
 	if turns.enemy_num == 1:
 		enemy_hp.visible = true
 		enemy.visible = true
@@ -32,9 +36,15 @@ func _ready():
 		player.position.x = 43
 		player.position.y = 73
 	if turns.enemy_num == 2:
-		enemy.visible = true
+		enemy2.visible = true
 		enemy_hp2.visible = true
 		current_enemy = enemy2	
+		player.position.x = 50
+		player.position.y = 60
+	if turns.enemy_num == 3:
+		enemy3.visible = true
+		enemy_hp3.visible = true
+		current_enemy = enemy3	
 		player.position.x = 50
 		player.position.y = 60
 	print(player.position)
@@ -49,6 +59,7 @@ func connect_signals():
 	daturaButton.pressed.connect(_on_datura_pressed)
 	hemlockButton.pressed.connect(_on_hemlock_pressed)
 	backButton.pressed.connect(_on_back_pressed)
+	rockButton.pressed.connect(_on_rock_pressed)
 
 
 func _process(delta):
@@ -60,14 +71,22 @@ func handle_enemy_hp():
 	if current_enemy and current_enemy.hp <= 30:
 		_initiate_execution()
 	if current_enemy and current_enemy.hp <= 0:
-		player.potion += 1
-		player.stems += 2
-		player.blood_vials += 1
 		player.position = original_player_position 
 		player.save_game()
 		get_tree().change_scene_to_file("res://Scenes/world.tscn")
 
-
+func _on_rock_pressed():
+	current_enemy.take_damage(50)
+	player.rocks -= 1
+	_change_turn()
+	hemlockButton.visible = false
+	potionButton.visible = false
+	seedButton.visible = false
+	itemButton.visible = true
+	attackButton.visible = true
+	defendButton.visible = true
+	rockButton.visible = false
+	backButton.visible = false
 # Execute actions when items are pressed
 func _on_item_pressed():
 	potionButton.visible = true
@@ -77,9 +96,11 @@ func _on_item_pressed():
 	attackButton.visible = false
 	defendButton.visible = false
 	backButton.visible = true
+	rockButton.visible = true
 	potionButton.visible = player.potion > 0
 	seedButton.visible = player.seeds > 0
 	hemlockButton.visible = player.stems > 0
+	rockButton.visible = player.rocks > 0
 # Go back to main menu
 func _on_back_pressed():
 	hemlockButton.visible = false
@@ -92,12 +113,28 @@ func _on_back_pressed():
 
 # Use potion
 func _on_potion_pressed():
+	hemlockButton.visible = false
+	potionButton.visible = false
+	seedButton.visible = false
+	itemButton.visible = true
+	attackButton.visible = true
+	defendButton.visible = true
+	rockButton.visible = false
+	backButton.visible = false
 	player.potion -= 1
 	player.heal(50)
 	_change_turn()
 
 # Use hemlock
 func _on_hemlock_pressed():
+	hemlockButton.visible = false
+	potionButton.visible = false
+	seedButton.visible = false
+	itemButton.visible = true
+	attackButton.visible = true
+	defendButton.visible = true
+	rockButton.visible = false
+	backButton.visible = false
 	player.eat_stem()
 	player.stems -= 1
 	_change_turn()
@@ -118,7 +155,16 @@ func _defend():
 
 # Use seed
 func _on_seed_pressed():
+	hemlockButton.visible = false
+	potionButton.visible = false
+	seedButton.visible = false
+	itemButton.visible = true
+	attackButton.visible = true
+	defendButton.visible = true
+	rockButton.visible = false
+	backButton.visible = false
 	player.eat_seed()
+	player.seeds -= 1
 	_change_turn()
 
 # Attack the enemy

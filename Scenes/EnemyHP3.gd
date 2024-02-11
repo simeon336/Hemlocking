@@ -1,17 +1,17 @@
 extends ProgressBar
 
-@onready var enemy2 = $"../Enemy2"
+@onready var enemy3 = $"../Enemy3"
 
 
 func _ready():
-	enemy2.enemy2_hp_changed.connect(_on_health_changed)
+	enemy3.enemy3_hp_changed.connect(_on_health_changed)
 	update()
 
 func _on_health_changed():
 	update()
 
 func update():
-	value = enemy2.hp * 100 / enemy2.max_hp
+	value = enemy3.hp * 100 / enemy3.max_hp
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

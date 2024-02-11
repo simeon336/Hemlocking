@@ -21,6 +21,7 @@ func _process(delta):
 		
 	if enemy != null:
 		if enemy.hp <= 0:
+			player.blood_vials += 1
 			enemy.queue_free()
 
 func _on_potion_pressed():
