@@ -31,7 +31,7 @@ func _on_potion_pressed():
 
 
 func _on_seed_pressed():
-	player.eat_seed(5)
+	player.eat_seed()
 	player.seeds -= 1
 
 func _on_stem_pressed():

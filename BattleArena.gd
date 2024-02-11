@@ -15,7 +15,9 @@ extends Node2D
 @onready var enemy_hp = $EnemyHP
 @onready var enemy_hp2 = $EnemyHP2
 @onready var enemy_hp3 = $EnemyHP3
+@onready var enemy_hp4 = $EnemyHP4
 @onready var rockButton = $Rock
+@onready var enemy4 = $Enemy4
 
 # Enemy related variables
 var current_enemy : Node2D = null
@@ -33,20 +35,30 @@ func _ready():
 		enemy_hp.visible = true
 		enemy.visible = true
 		current_enemy = enemy
-		player.position.x = 43
-		player.position.y = 73
+		player.position.x = 50
+		player.position.y = 60
+		
 	if turns.enemy_num == 2:
 		enemy2.visible = true
 		enemy_hp2.visible = true
 		current_enemy = enemy2	
 		player.position.x = 50
 		player.position.y = 60
+		
 	if turns.enemy_num == 3:
 		enemy3.visible = true
 		enemy_hp3.visible = true
 		current_enemy = enemy3	
 		player.position.x = 50
 		player.position.y = 60
+	
+	if turns.enemy_num == 4:
+		enemy4.visible = true
+		enemy_hp4.visible = true
+		current_enemy = enemy4	
+		player.position.x = 50
+		player.position.y = 60
+		
 	print(player.position)
 		
 # Connect signals

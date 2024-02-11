@@ -19,6 +19,7 @@ func _on_new_game_button_pressed():
 	dir.remove("res://SaveFiles/enemysave.json")
 	dir.remove("res://SaveFiles/enemy2save.json")
 	dir.remove("res://SaveFiles/enemy3save.json")
+	dir.remove("res://SaveFiles/enemy4save.json")
 	get_tree().change_scene_to_file("res://Scenes/world.tscn")
 
 func _on_load_game_button_pressed():
