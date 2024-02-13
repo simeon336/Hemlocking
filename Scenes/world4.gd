@@ -37,7 +37,7 @@ func _process(delta):
 
 func _on_potion_pressed():
 	player.heal(50)
-	player.potion -= 1
+	player.potions -= 1
 	player.print_stats()
 
 func _show_harvest():

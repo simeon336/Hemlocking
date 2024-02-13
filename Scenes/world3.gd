@@ -63,6 +63,7 @@ func _tp_pressed():
 func _harvest():
 	player.stems += 2
 	player.seeds += 3
+	player.potions += 1
 	harvestButton.visible = false
 	player.blood_vials -= 1
 	plant.queue_free()
@@ -80,7 +81,7 @@ func _on_rock_exited():
 
 func _on_potion_pressed():
 	player.heal(50)
-	player.potion -= 1
+	player.potions -= 1
 	player.print_stats()
 
 

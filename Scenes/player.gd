@@ -7,12 +7,11 @@ var max_hp : int = 100
 var hp : int = max_hp
 var defense : int = 0
 var attack : int = 20
-var hasDatura : bool = false
 var is_in_combat : bool = false
 var toxicity : float = 0
 var seeds : int = 0
 var stems : int = 0
-var potion : int = 0
+var potions : int = 0
 var blood_vials : int = 0
 var rocks : int = 0
 # Speed
@@ -73,7 +72,6 @@ func _process(delta):
 
 	
 func eat_datura():
-	hasDatura = false
 	attack += 5
 	max_hp += 50
 	save_game()
@@ -117,12 +115,11 @@ func save():
 		"hp": hp,
 		"defense": defense,
 		"attack": attack,
-		"hasDatura": hasDatura,
 		"is_in_combat": is_in_combat,
 		"toxicity": toxicity,
 		"seeds": seeds,
 		"stems": stems,
-		"potion": potion,
+		"potions": potions,
 		"blood_vials": blood_vials,
 		"rocks": rocks,
 		"position": position_array  # Convert Vector2 to array
@@ -165,12 +162,11 @@ func load_game():
 		player.hp = node_data["hp"]
 		player.defense = node_data["defense"]
 		player.attack = node_data["attack"]
-		player.hasDatura = node_data["hasDatura"]
 		player.is_in_combat = node_data["is_in_combat"]
 		player.toxicity = node_data["toxicity"]
 		player.stems = node_data["stems"]
 		player.seeds = node_data["seeds"]
-		player.potion = node_data["potion"]
+		player.potions = node_data["potions"]
 		player.blood_vials = node_data["blood_vials"]
 		player.rocks = node_data["rocks"]
 		

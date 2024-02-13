@@ -12,6 +12,9 @@ signal stem
 @onready var seedButton = $Seed
 @onready var stemButton = $Stem
 @onready var backButton = $Back
+@onready var potion_info = $potionInfo
+@onready var seed_info = $seedInfo
+
 var seeds : int
 var stems : int
 var potions : int
@@ -108,7 +111,7 @@ func load_game():
 		
 		seeds = node_data["seeds"]
 		stems = node_data["stems"]
-		potions = node_data["potion"]
+		potions = node_data["potions"]
 		
 		save_game.close()
 

@@ -18,6 +18,11 @@ extends Node2D
 @onready var enemy_hp4 = $EnemyHP4
 @onready var rockButton = $Rock
 @onready var enemy4 = $Enemy4
+@onready var datura_info = $daturaInfo
+@onready var potion_info = $potionInfo
+@onready var seed_info = $seedInfo
+@onready var stem_info = $stemInfo
+@onready var rock_info = $rockInfo
 
 # Enemy related variables
 var current_enemy : Node2D = null
@@ -65,20 +70,58 @@ func _ready():
 func connect_signals():
 	attackButton.pressed.connect(_on_attacked)
 	potionButton.pressed.connect(_on_potion_pressed)
+	potionButton.mouse_entered.connect(_show_potion_info)
+	potionButton.mouse_exited.connect(_hide_potion_info)
 	itemButton.pressed.connect(_on_item_pressed)
 	defendButton.pressed.connect(_defend)
 	seedButton.pressed.connect(_on_seed_pressed)
+	seedButton.mouse_entered.connect(_show_seed_info)
+	seedButton.mouse_exited.connect(_hide_seed_info)
 	daturaButton.pressed.connect(_on_datura_pressed)
+	daturaButton.mouse_entered.connect(_show_datura_info)
+	daturaButton.mouse_exited.connect(_hide_datura_info)
 	hemlockButton.pressed.connect(_on_hemlock_pressed)
+	hemlockButton.mouse_entered.connect(_show_stem_info)
+	hemlockButton.mouse_exited.connect(_hide_stem_info)
 	backButton.pressed.connect(_on_back_pressed)
 	rockButton.pressed.connect(_on_rock_pressed)
+	rockButton.mouse_entered.connect(_show_rock_info)
+	rockButton.mouse_exited.connect(_hide_rock_info)
 
 
 func _process(delta):
 	handle_enemy_hp()
-	
 
-# Check and execute actions based on enemy's HP
+func _show_datura_info():
+	datura_info.visible = true
+
+func _hide_datura_info():
+	datura_info.visible = false
+
+func _show_potion_info():
+	potion_info.visible = true
+
+func _hide_potion_info():
+	potion_info.visible = false
+	
+func _show_seed_info():
+	seed_info.visible = true
+
+func _hide_seed_info():
+	seed_info.visible = false
+	
+func _show_stem_info():
+	stem_info.visible = true
+
+func _hide_stem_info():
+	stem_info.visible = false
+
+func _show_rock_info():
+	rock_info.visible = true
+
+func _hide_rock_info():
+	rock_info.visible = false
+	
 func handle_enemy_hp():
 	if current_enemy and current_enemy.hp <= 30:
 		_initiate_execution()
@@ -90,7 +133,10 @@ func handle_enemy_hp():
 func _on_rock_pressed():
 	current_enemy.take_damage(50)
 	player.rocks -= 1
+	if current_enemy:
+		current_enemy.take_damage(player.toxicity)
 	_change_turn()
+
 	hemlockButton.visible = false
 	potionButton.visible = false
 	seedButton.visible = false
@@ -109,7 +155,7 @@ func _on_item_pressed():
 	defendButton.visible = false
 	backButton.visible = true
 	rockButton.visible = true
-	potionButton.visible = player.potion > 0
+	potionButton.visible = player.potions > 0
 	seedButton.visible = player.seeds > 0
 	hemlockButton.visible = player.stems > 0
 	rockButton.visible = player.rocks > 0
@@ -133,7 +179,9 @@ func _on_potion_pressed():
 	defendButton.visible = true
 	rockButton.visible = false
 	backButton.visible = false
-	player.potion -= 1
+	player.potions -= 1
+	if current_enemy:
+		current_enemy.take_damage(player.toxicity)
 	player.heal(50)
 	_change_turn()
 
@@ -148,6 +196,8 @@ func _on_hemlock_pressed():
 	rockButton.visible = false
 	backButton.visible = false
 	player.eat_stem()
+	if current_enemy:
+		current_enemy.poison_tick(player.toxicity)
 	player.stems -= 1
 	_change_turn()
 
@@ -164,6 +214,8 @@ func _on_datura_pressed():
 func _defend():
 	if current_enemy:
 		player.take_damage(current_enemy.attack / 2)
+		current_enemy.poison_tick(player.toxicity)
+		
 
 # Use seed
 func _on_seed_pressed():
@@ -177,6 +229,8 @@ func _on_seed_pressed():
 	backButton.visible = false
 	player.eat_seed()
 	player.seeds -= 1
+	if current_enemy:
+		current_enemy.poison_tick(player.toxicity)
 	_change_turn()
 
 # Attack the enemy
@@ -185,7 +239,6 @@ func _on_attacked():
 		current_enemy.poison_tick(player.toxicity)
 		current_enemy.take_damage(player.attack)
 		_change_turn()
-	print("bruh")
 	print(current_enemy.max_hp)
 
 # Enemy's turn

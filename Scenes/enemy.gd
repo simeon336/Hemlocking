@@ -5,7 +5,7 @@ var max_hp : int = 100
 var hp : int = max_hp
 var defense : int = 0
 var attack : int = 10
-var poison : float = 0
+
 
 func _ready():
 	load_game()
@@ -16,10 +16,6 @@ func _process(delta):
 func take_damage(damage: int):
 	var final_damage = max(damage - defense, 0)
 	hp -= final_damage
-	print("Player took damage:", final_damage)
-	print_stats()
-
-	
 	emit_signal("enemy_hp_changed")
 		
 func print_stats():
@@ -28,9 +24,8 @@ func print_stats():
 	print("Attack :", attack)
  
 func poison_tick(amount: float):
-	poison += amount
-	take_damage(poison)
-	
+	hp -= amount
+	emit_signal("enemy_hp_changed")
 
 func _on_body_entered(body):
 	turns.enemy_num = 1
@@ -42,9 +37,7 @@ func save():
 		"max_hp": max_hp,
 		"hp": hp,
 		"defense": defense,
-		"attack": attack,
-		"poison": poison
-		#"position": position_array  # Convert Vector2 to array
+		"attack": attack
 	}
 	return save_data
 
@@ -58,7 +51,7 @@ func save_game():
 	
 func load_game():
 	if not FileAccess.file_exists("res://SaveFiles/enemysave.json"):
-		return  # Error! We don't have a save to load.
+		return  
 
 	var save_game = FileAccess.open("res://SaveFiles/enemysave.json", FileAccess.READ)
 	
@@ -78,6 +71,5 @@ func load_game():
 		hp = node_data["hp"]
 		defense = node_data["defense"]
 		attack = node_data["attack"]
-		poison = node_data["poison"]
 		
 		save_game.close()

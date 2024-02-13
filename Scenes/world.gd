@@ -39,7 +39,6 @@ func _on_stem_pressed():
 	player.stems -= 1
 	
 func set_is_paused(is_paused: bool):
-	print("pause")
 	if is_paused:
 		pause_menu.show()
 		Engine.time_scale = 0

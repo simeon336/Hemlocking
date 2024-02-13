@@ -114,18 +114,18 @@ text = "Hemlock stem"
 
 [node name="Datura" type="Button" parent="."]
 visible = false
-offset_left = 78.0
-offset_top = 16.0
-offset_right = 185.0
-offset_bottom = 47.0
+offset_left = 63.0
+offset_top = 18.0
+offset_right = 170.0
+offset_bottom = 49.0
 scale = Vector2(0.637538, 0.637538)
 text = "DATURAAA!!!"
 
 [node name="Back" type="Button" parent="."]
 visible = false
-offset_left = 129.0
+offset_left = 148.0
 offset_top = 96.0
-offset_right = 174.0
+offset_right = 193.0
 offset_bottom = 127.0
 scale = Vector2(0.648, 0.648)
 text = "Back"
@@ -150,3 +150,50 @@ position = Vector2(183, 62)
 [node name="Enemy4" parent="." instance=ExtResource("11_lvdnl")]
 visible = false
 position = Vector2(184, 66)
+
+[node name="daturaInfo" type="Label" parent="."]
+visible = false
+offset_left = 141.0
+offset_top = 107.0
+offset_right = 379.0
+offset_bottom = 169.0
+scale = Vector2(0.357232, 0.357232)
+text = "Absorb enemy and gain 
+5 attack and 50 bonus max hp"
+
+[node name="potionInfo" type="Label" parent="."]
+visible = false
+offset_left = 85.0
+offset_top = 4.0
+offset_right = 163.0
+offset_bottom = 30.0
+scale = Vector2(0.553878, 0.553878)
+text = "Heal 50hp"
+
+[node name="rockInfo" type="Label" parent="."]
+visible = false
+offset_left = 66.0
+offset_top = 12.0
+offset_right = 106.0
+offset_bottom = 35.0
+scale = Vector2(0.560885, 0.560885)
+text = "Throw a rock and deal 50 dmg :D"
+
+[node name="stemInfo" type="Label" parent="."]
+visible = false
+offset_left = 66.0
+offset_top = 12.0
+offset_right = 317.0
+offset_bottom = 38.0
+scale = Vector2(0.463372, 0.463372)
+text = "Restore 30 hp
+ and gain 5 toxicity"
+
+[node name="seedInfo" type="Label" parent="."]
+visible = false
+offset_left = 72.0
+offset_top = 7.0
+offset_right = 239.0
+offset_bottom = 33.0
+scale = Vector2(0.491413, 0.491413)
+text = "Gain 5 bonus defense"

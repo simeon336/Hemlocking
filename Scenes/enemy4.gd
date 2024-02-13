@@ -4,9 +4,9 @@ signal enemy4_hp_changed
 signal enemy4_died
 var max_hp : int = 250
 var hp : int = max_hp
-var defense : int = 0
+var defense : int = 10
 var attack : int = 40
-var poison : float = 0
+
 
 
 func _ready():
@@ -35,8 +35,8 @@ func print_stats():
 	print("Attack :", attack)
  
 func poison_tick(amount: float):
-	poison += amount
-	take_damage(poison)
+	hp -= amount
+	emit_signal("enemy4_hp_changed")
 	
 
 func _on_body_entered(body):
@@ -49,8 +49,7 @@ func save():
 		"max_hp": max_hp,
 		"hp": hp,
 		"defense": defense,
-		"attack": attack,
-		"poison": poison
+		"attack": attack
 		#"position": position_array  # Convert Vector2 to array
 	}
 	return save_data
@@ -89,6 +88,5 @@ func load_game():
 		hp = node_data["hp"]
 		defense = node_data["defense"]
 		attack = node_data["attack"]
-		poison = node_data["poison"]
 		
 		save_game.close()

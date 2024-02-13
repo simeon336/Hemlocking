@@ -82,6 +82,31 @@ offset_right = 68.0
 offset_bottom = 135.0
 text = "Back"
 
+[node name="potionInfo" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -124.715
+offset_top = 31.1788
+offset_right = -17.7153
+offset_bottom = 57.1788
+text = "Restore 50 hp"
+
+[node name="stemInfo" type="Label" parent="."]
+layout_mode = 0
+offset_left = -128.18
+offset_top = 3.46431
+offset_right = -88.1796
+offset_bottom = 26.4643
+
+[node name="seedInfo" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -128.18
+offset_top = 3.46431
+offset_right = -13.1796
+offset_bottom = 29.4643
+text = "Gain 5 defense"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Items" to="." method="_on_items_pressed"]
