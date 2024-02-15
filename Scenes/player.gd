@@ -27,7 +27,7 @@ func _process(delta):
 	save_game()
 	if(hp <= 0):
 		save_game()
-		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
+		get_tree().change_scene_to_file("user://Scenes/game_over.tscn")
 		
 	if(get_tree().current_scene.name != "World"):
 		return
@@ -115,17 +115,17 @@ func save():
 
 
 func save_game():
-	var save_game = FileAccess.open("res://SaveFiles/playersave.json", FileAccess.WRITE)
+	var save_game = FileAccess.open("user://SaveFiles/playersave.json", FileAccess.WRITE)
 	var node = get_node(".")
 	var node_data = node.call("save")
 	var json_string = JSON.stringify(node_data)
 	save_game.store_line(json_string)
 	
 func load_game():
-	if not FileAccess.file_exists("res://SaveFiles/playersave.json"):
+	if not FileAccess.file_exists("user://SaveFiles/playersave.json"):
 		return  
 
-	var save_game = FileAccess.open("res://SaveFiles/playersave.json", FileAccess.READ)
+	var save_game = FileAccess.open("user://SaveFiles/playersave.json", FileAccess.READ)
 
 	while save_game.get_position() < save_game.get_length():
 		var json_string = save_game.get_line()

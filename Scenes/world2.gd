@@ -39,7 +39,7 @@ func _process(delta):
 
 func _on_water_pressed():
 	player.blood_vials -= 1
-	get_tree().change_scene_to_file("res://Scenes/world3.tscn")
+	get_tree().change_scene_to_file("user://Scenes/world3.tscn")
 
 func _entered_log():
 	thirst.visible = true

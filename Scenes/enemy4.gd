@@ -7,8 +7,6 @@ var hp : int = max_hp
 var defense : int = 15
 var attack : int = 40
 
-
-
 func _ready():
 	load_game()
 
@@ -25,7 +23,7 @@ func take_damage(damage: int):
 		hp = 0
 		emit_signal("enemy4_died")
 		save_game()
-		get_tree().change_scene_to_file("res://Scenes/world4.tscn")
+		get_tree().change_scene_to_file("user://Scenes/world4.tscn")
 	
 	emit_signal("enemy4_hp_changed")
 		
@@ -41,7 +39,7 @@ func poison_tick(amount: float):
 
 func _on_body_entered(body):
 	turns.enemy_num = 4
-	get_tree().change_scene_to_file("res://Scenes/battle_arena.tscn")
+	get_tree().change_scene_to_file("user://Scenes/battle_arena.tscn")
 
 func save():
 	#var position_array = [position.x, position.y]
@@ -56,17 +54,17 @@ func save():
 
 
 func save_game():
-	var save_game = FileAccess.open("res://SaveFiles/enemy4save.json", FileAccess.WRITE)
+	var save_game = FileAccess.open("user://SaveFiles/enemy4save.json", FileAccess.WRITE)
 	var node = get_node(".")
 	var node_data = node.call("save")
 	var json_string = JSON.stringify(node_data)
 	save_game.store_line(json_string)
 	
 func load_game():
-	if not FileAccess.file_exists("res://SaveFiles/enemy4save.json"):
+	if not FileAccess.file_exists("user://SaveFiles/enemy4save.json"):
 		return  # Error! We don't have a save to load.
 
-	var save_game = FileAccess.open("res://SaveFiles/enemy4save.json", FileAccess.READ)
+	var save_game = FileAccess.open("user://SaveFiles/enemy4save.json", FileAccess.READ)
 	
 	while save_game.get_position() < save_game.get_length():
 		var json_string = save_game.get_line()
