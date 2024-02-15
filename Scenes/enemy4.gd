@@ -4,7 +4,7 @@ signal enemy4_hp_changed
 signal enemy4_died
 var max_hp : int = 250
 var hp : int = max_hp
-var defense : int = 10
+var defense : int = 15
 var attack : int = 40
 
 

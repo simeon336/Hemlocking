@@ -53,11 +53,9 @@ func _exited_log():
 func _show_harvest():
 	if player.blood_vials > 0:
 		harvestButton.visible = true
-	else:
-		blood.visible = true
+		
 func _hide_harvest():
 	harvestButton.visible = false
-	blood.visible = false
 
 func _harvest():
 	player.stems += 2

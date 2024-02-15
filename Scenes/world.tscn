@@ -707,4 +707,3 @@ position = Vector2(446.5, 144.5)
 shape = SubResource("RectangleShape2D_x0t6l")
 
 [connection signal="body_entered" from="Enemy" to="Player" method="_on_enemy_body_entered"]
-[connection signal="changed" from="CanvasLayer/ProgressBar" to="CanvasLayer/ProgressBar" method="_on_player_health_changed"]

@@ -1,20 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfc11chvbjfw3"]
+[gd_scene load_steps=2 format=3 uid="uid://bfc11chvbjfw3"]
 
 [ext_resource type="Script" path="res://Scenes/pause_menu.gd" id="1_68hqx"]
-
-[sub_resource type="GDScript" id="GDScript_rng58"]
-script/source = "extends Button
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-"
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
@@ -41,7 +27,6 @@ text = "Resume"
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
-script = SubResource("GDScript_rng58")
 
 [node name="Items" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -85,32 +70,26 @@ text = "Back"
 [node name="potionInfo" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = -124.715
-offset_top = 31.1788
-offset_right = -17.7153
-offset_bottom = 57.1788
+offset_left = -1.73216
+offset_top = -65.822
+offset_right = 105.268
+offset_bottom = -39.822
 text = "Restore 50 hp"
 
 [node name="stemInfo" type="Label" parent="."]
+visible = false
 layout_mode = 0
-offset_left = -128.18
-offset_top = 3.46431
-offset_right = -88.1796
-offset_bottom = 26.4643
+offset_left = 1.73216
+offset_top = -74.4827
+offset_right = 146.732
+offset_bottom = -22.4827
+text = "Restore 30 hp
+ and gain 5 toxicity"
 
 [node name="seedInfo" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = -128.18
-offset_top = 3.46431
-offset_right = -13.1796
-offset_bottom = 29.4643
+offset_top = -46.7682
+offset_right = 115.0
+offset_bottom = -20.7682
 text = "Gain 5 defense"
-
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Items" to="." method="_on_items_pressed"]
-[connection signal="pressed" from="Potion" to="." method="_on_potion_pressed"]
-[connection signal="pressed" from="Seed" to="." method="_on_seed_pressed"]
-[connection signal="pressed" from="Stem" to="." method="_on_stem_pressed"]
-[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

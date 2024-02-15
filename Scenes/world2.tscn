@@ -735,21 +735,11 @@ offset_bottom = 447.0
 scale = Vector2(0.798946, 0.798946)
 text = "Harvest"
 
-[node name="Blood" type="Label" parent="."]
-visible = false
-offset_left = 49.0
-offset_top = 389.0
-offset_right = 255.0
-offset_bottom = 467.0
-scale = Vector2(0.64326, 0.64326)
-text = "In order to harvest this 
-plant you need
-a blood vile (kill an enemy)"
-
 [node name="Log" type="Area2D" parent="."]
 script = ExtResource("8_ir7xj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Log"]
+visible = false
 position = Vector2(415, -68)
 shape = SubResource("RectangleShape2D_4b0qg")
 
@@ -770,5 +760,3 @@ offset_right = 391.0
 offset_bottom = -10.0
 scale = Vector2(0.667771, 0.667771)
 text = "Water"
-
-[connection signal="changed" from="CanvasLayer/ProgressBar" to="CanvasLayer/ProgressBar" method="_on_player_health_changed"]

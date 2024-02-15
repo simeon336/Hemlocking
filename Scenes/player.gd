@@ -21,13 +21,11 @@ var rocks : int = 0
 func _ready():
 	load_game()
 
-# Called every frame
 func _process(delta):
 	if is_in_combat == true:
 		return
 	save_game()
 	if(hp <= 0):
-		hp = max_hp
 		save_game()
 		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
 		
@@ -52,53 +50,41 @@ func _process(delta):
 		$AnimatedSprite2D.animation = "idle"
 
 	velocity = velocity.normalized() * speed
-	velocity *= delta  # Scale velocity by delta for consistent movement
+	velocity *= delta  
 	
 	if velocity.x != 0 || velocity.y != 0:
 		$AnimatedSprite2D.animation = "run"
 		$AnimatedSprite2D.flip_h = velocity.x < 0
 	else:
 		$AnimatedSprite2D.animation = "idle"
-	# Use move_and_collide to handle collisions
+
 	var collision = move_and_collide(velocity)
 
 	if collision:
-		# If there is a collision, adjust the position and handle any other logic
 		position += collision.get_remainder()
 	else:
-		# If no collision, simply update the position
 		position += velocity
-
-
 	
 func eat_datura():
 	attack += 5
 	max_hp += 50
-	save_game()
 	
-	
-# Handle damage to the player
 func take_damage(damage: int):
 	var final_damage = max(damage - defense, 0)
 	hp -= final_damage
-	print("Player took damage:", final_damage)
-	print_stats()
 	health_changed.emit(max_hp, hp)
 
-	if hp <= 0:
+	if hp < 0:
 		hp = 0
 	emit_signal("health_changed")
 	
-
-# Handle healing the player
 func heal(amount: int):
 	hp = min(hp + amount, max_hp)
 	emit_signal("health_changed")
-	save_game()
 	
 func eat_seed():
 	defense += 5
-# Function to print health
+
 func print_stats():
 	print("Hp: ", hp, "/", max_hp)
 	print("Defense: ", defense)
@@ -122,7 +108,7 @@ func save():
 		"potions": potions,
 		"blood_vials": blood_vials,
 		"rocks": rocks,
-		"position": position_array  # Convert Vector2 to array
+		"position": position_array  
 	}
 	return save_data
 
@@ -137,7 +123,7 @@ func save_game():
 	
 func load_game():
 	if not FileAccess.file_exists("res://SaveFiles/playersave.json"):
-		return  # Error! We don't have a save to load.
+		return  
 
 	var save_game = FileAccess.open("res://SaveFiles/playersave.json", FileAccess.READ)
 
@@ -148,15 +134,13 @@ func load_game():
 		var parse_result = json.parse(json_string)
 		if not parse_result == OK:
 			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
-			continue
-			
+			continue		
 			
 		var node_data = json.get_data()
 		
-		# Update position if it exists in the saved data
 		if "position" in node_data:
 			var position_array = node_data["position"]
-			position = Vector2(position_array[0], position_array[1])  # Convert array to Vector2
+			position = Vector2(position_array[0], position_array[1])  
 
 		player.max_hp = node_data["max_hp"]
 		player.hp = node_data["hp"]
@@ -170,5 +154,4 @@ func load_game():
 		player.blood_vials = node_data["blood_vials"]
 		player.rocks = node_data["rocks"]
 		
-		player.print_stats()
 		save_game.close()

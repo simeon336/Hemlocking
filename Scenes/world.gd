@@ -4,6 +4,7 @@ extends Node2D
 @onready var enemy = $Enemy
 @onready var player = $Player
 @onready var main_menu = $MainMenu
+@onready var progress_bar = $CanvasLayer/ProgressBar
 
 var current_enemy : Node2D = null
 # Called when the node enters the scene tree for the first time.

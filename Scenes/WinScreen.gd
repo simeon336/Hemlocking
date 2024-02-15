@@ -2,16 +2,9 @@ extends Node2D
 @onready var restart = $Restart
 @onready var quit = $Quit
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	restart.pressed.connect(_on_restart_pressed)
 	quit.pressed.connect(_on_quit_pressed)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 func _on_restart_pressed():
 	var dir = DirAccess.open("res://SaveFiles/")
