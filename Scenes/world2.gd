@@ -3,10 +3,8 @@ extends Node2D
 @onready var pause_menu = $Player/Camera2D/PauseMenu
 @onready var enemy2 = $Enemy2
 @onready var player = $Player
-@onready var main_menu = $MainMenu
 @onready var plant = $Plant
 @onready var harvestButton = $Harvest
-@onready var blood = $Blood
 @onready var log = $Log
 @onready var waterButton = $Water
 @onready var thirst = $Thirst
@@ -63,6 +61,7 @@ func _harvest():
 	player.blood_vials -= 1
 	harvestButton.visible = false
 	plant.queue_free()
+	player.save_game()
 
 func _on_potion_pressed():
 	player.heal(50)

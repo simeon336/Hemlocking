@@ -705,5 +705,3 @@ script = ExtResource("8_k7fyu")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hole"]
 position = Vector2(446.5, 144.5)
 shape = SubResource("RectangleShape2D_x0t6l")
-
-[connection signal="body_entered" from="Enemy" to="Player" method="_on_enemy_body_entered"]

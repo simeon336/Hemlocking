@@ -35,4 +35,4 @@ func load_game():
 		max_hp = node_data["max_hp"]
 		hp = node_data["hp"]
 		update()
-		save_game.close()
+	save_game.close()

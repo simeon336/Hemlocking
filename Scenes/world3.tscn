@@ -762,5 +762,3 @@ script = ExtResource("10_pp601")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hole"]
 position = Vector2(510.5, -144.5)
 shape = SubResource("RectangleShape2D_evsey")
-
-[connection signal="changed" from="CanvasLayer/ProgressBar" to="CanvasLayer/ProgressBar" method="_on_player_health_changed"]

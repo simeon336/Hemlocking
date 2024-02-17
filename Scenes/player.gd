@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-signal health_changed(max_hp : int, hp : int)
+signal health_changed
 
 # Player properties
 var max_hp : int = 100
@@ -24,7 +24,6 @@ func _ready():
 func _process(delta):
 	if is_in_combat == true:
 		return
-	save_game()
 	if(hp <= 0):
 		save_game()
 		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
@@ -68,22 +67,26 @@ func _process(delta):
 func eat_datura():
 	attack += 5
 	max_hp += 50
+	save_game()
 	
 func take_damage(damage: int):
 	var final_damage = max(damage - defense, 0)
 	hp -= final_damage
-	health_changed.emit(max_hp, hp)
+	emit_signal("health_changed")
 
 	if hp < 0:
 		hp = 0
 	emit_signal("health_changed")
+	save_game()
 	
 func heal(amount: int):
 	hp = min(hp + amount, max_hp)
 	emit_signal("health_changed")
+	save_game()
 	
 func eat_seed():
 	defense += 5
+	save_game()
 
 func print_stats():
 	print("Hp: ", hp, "/", max_hp)
@@ -93,9 +96,9 @@ func print_stats():
 func eat_stem():
 	toxicity += 5
 	heal(30)
+	save_game()
 
 func save():
-	var position_array = [position.x, position.y]
 	var save_data = {
 		"max_hp": max_hp,
 		"hp": hp,
@@ -107,14 +110,14 @@ func save():
 		"stems": stems,
 		"potions": potions,
 		"blood_vials": blood_vials,
-		"rocks": rocks,
-		"position": position_array  
+		"rocks": rocks
 	}
 	return save_data
 
 
 
 func save_game():
+	print("yes")
 	var save_game = FileAccess.open("res://SaveFiles/playersave.json", FileAccess.WRITE)
 	var node = get_node(".")
 	var node_data = node.call("save")
@@ -130,7 +133,7 @@ func load_game():
 	while save_game.get_position() < save_game.get_length():
 		var json_string = save_game.get_line()
 		var json = JSON.new()
-		
+		print(json_string)
 		var parse_result = json.parse(json_string)
 		if not parse_result == OK:
 			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
@@ -138,10 +141,6 @@ func load_game():
 			
 		var node_data = json.get_data()
 		
-		if "position" in node_data:
-			var position_array = node_data["position"]
-			position = Vector2(position_array[0], position_array[1])  
-
 		player.max_hp = node_data["max_hp"]
 		player.hp = node_data["hp"]
 		player.defense = node_data["defense"]
@@ -154,4 +153,4 @@ func load_game():
 		player.blood_vials = node_data["blood_vials"]
 		player.rocks = node_data["rocks"]
 		
-		save_game.close()
+	save_game.close()

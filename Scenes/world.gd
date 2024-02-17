@@ -3,7 +3,6 @@ extends Node2D
 @onready var pause_menu = $Player/Camera2D/PauseMenu
 @onready var enemy = $Enemy
 @onready var player = $Player
-@onready var main_menu = $MainMenu
 @onready var progress_bar = $CanvasLayer/ProgressBar
 
 var current_enemy : Node2D = null
@@ -14,17 +13,16 @@ func _ready():
 	pause_menu.potion.connect(_on_potion_pressed)
 	pause_menu.seed.connect(_on_seed_pressed)
 	pause_menu.stem.connect(_on_stem_pressed)
+	if enemy != null:
+		if enemy.hp <= 0:
+			player.blood_vials += 1
+			enemy.queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("pause"):
 		set_is_paused(true)
 		
-	if enemy != null:
-		if enemy.hp <= 0:
-			player.blood_vials += 1
-			enemy.queue_free()
-
 func _on_potion_pressed():
 	player.heal(50)
 	player.potion -= 1

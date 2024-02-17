@@ -13,11 +13,12 @@ func _process(delta):
 
 func _on_new_game_button_pressed():
 	var dir = DirAccess.open("res://SaveFiles/")
-	dir.remove("res://SaveFiles/playersave.json")
-	dir.remove("res://SaveFiles/enemysave.json")
-	dir.remove("res://SaveFiles/enemy2save.json")
-	dir.remove("res://SaveFiles/enemy3save.json")
-	dir.remove("res://SaveFiles/enemy4save.json")
+	var save_files = ["playersave.json", "enemysave.json", "enemy2save.json", "enemy3save.json", "enemy4save.json"]
+	for save_file in save_files:
+		var path = "user://SaveFiles/" + save_file
+		if FileAccess.file_exists(path):
+			dir.remove(path)
+			print("removed file" + path)
 	get_tree().change_scene_to_file("res://Scenes/world.tscn")
 
 func _on_load_game_button_pressed():

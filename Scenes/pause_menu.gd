@@ -94,6 +94,7 @@ func _on_potion_pressed():
 	stemButton.visible = false
 	itemsButton.visible = true
 	backButton.visible = false
+	potion_info.visible = false
 
 
 func _on_seed_pressed():
@@ -105,6 +106,7 @@ func _on_seed_pressed():
 	stemButton.visible = false
 	itemsButton.visible = true
 	backButton.visible = false
+	seed_info.visible = false
 
 
 func _on_stem_pressed():
@@ -116,6 +118,7 @@ func _on_stem_pressed():
 	stemButton.visible = false
 	itemsButton.visible = true
 	backButton.visible = false
+	stem_info.visible = false
 
 func load_game():
 	if not FileAccess.file_exists("res://SaveFiles/playersave.json"):
@@ -138,7 +141,7 @@ func load_game():
 		stems = node_data["stems"]
 		potions = node_data["potions"]
 		
-		save_game.close()
+	save_game.close()
 
 
 func _on_back_pressed():

@@ -13,9 +13,6 @@ extends Node2D
 @onready var enemy2 = $Enemy2
 @onready var enemy3 = $Enemy3
 @onready var enemy_hp = $EnemyHP
-@onready var enemy_hp2 = $EnemyHP2
-@onready var enemy_hp3 = $EnemyHP3
-@onready var enemy_hp4 = $EnemyHP4
 @onready var rockButton = $Rock
 @onready var enemy4 = $Enemy4
 @onready var datura_info = $daturaInfo
@@ -33,7 +30,6 @@ func _ready():
 	original_player_position = player.position
 	
 	if turns.enemy_num == 1:
-		enemy_hp.visible = true
 		enemy.visible = true
 		current_enemy = enemy
 		player.position.x = 50
@@ -41,21 +37,18 @@ func _ready():
 		
 	if turns.enemy_num == 2:
 		enemy2.visible = true
-		enemy_hp2.visible = true
 		current_enemy = enemy2	
 		player.position.x = 50
 		player.position.y = 60
 		
 	if turns.enemy_num == 3:
 		enemy3.visible = true
-		enemy_hp3.visible = true
 		current_enemy = enemy3	
 		player.position.x = 50
 		player.position.y = 60
 	
 	if turns.enemy_num == 4:
 		enemy4.visible = true
-		enemy_hp4.visible = true
 		current_enemy = enemy4	
 		player.position.x = 50
 		player.position.y = 60
@@ -129,7 +122,7 @@ func _on_rock_pressed():
 	if current_enemy:
 		current_enemy.poison_tick(player.toxicity)
 	_change_turn()
-
+	rock_info.visible = false
 	hemlockButton.visible = false
 	potionButton.visible = false
 	seedButton.visible = false
@@ -163,6 +156,7 @@ func _on_back_pressed():
 	backButton.visible = false
 
 func _on_potion_pressed():
+	potion_info.visible = false
 	hemlockButton.visible = false
 	potionButton.visible = false
 	seedButton.visible = false
@@ -178,6 +172,7 @@ func _on_potion_pressed():
 	_change_turn()
 
 func _on_hemlock_pressed():
+	stem_info.visible = false
 	hemlockButton.visible = false
 	potionButton.visible = false
 	seedButton.visible = false
@@ -203,6 +198,7 @@ func _defend():
 		current_enemy.poison_tick(player.toxicity)
 		
 func _on_seed_pressed():
+	seed_info.visible = false
 	hemlockButton.visible = false
 	potionButton.visible = false
 	seedButton.visible = false

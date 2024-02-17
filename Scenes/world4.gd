@@ -3,7 +3,6 @@ extends Node2D
 @onready var pause_menu = $Player/Camera2D/PauseMenu
 @onready var enemy4 = $Enemy4
 @onready var player = $Player
-@onready var main_menu = $MainMenu
 @onready var plant = $Plant
 @onready var harvestButton = $Harvest
 @onready var rock = $Rock

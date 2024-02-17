@@ -1,13 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://durv1dky32poc"]
 
-[ext_resource type="Script" path="res://Scenes/enemy4.gd" id="1_h3jht"]
+[ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_ew3pt"]
 [ext_resource type="Texture2D" uid="uid://1uf86bwyj6ml" path="res://art/mySprites/as3ntran_front.png" id="2_w5cob"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_abqoo"]
 size = Vector2(11, 19)
 
 [node name="Enemy4" type="Area2D" groups=["enemy"]]
-script = ExtResource("1_h3jht")
+script = ExtResource("1_ew3pt")
+max_hp = 250
+defense = 5
+attack = 20
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_w5cob")

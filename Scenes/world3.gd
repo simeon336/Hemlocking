@@ -3,7 +3,6 @@ extends Node2D
 @onready var pause_menu = $Player/Camera2D/PauseMenu
 @onready var enemy3 = $Enemy3
 @onready var player = $Player
-@onready var main_menu = $MainMenu
 @onready var rock = $Rock
 @onready var pick_up = $PickUp
 @onready var plant = $Plant
@@ -13,7 +12,7 @@ extends Node2D
 
 
 var current_enemy : Node2D = null
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 
 	player.position.x = 120

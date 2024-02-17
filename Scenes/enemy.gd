@@ -1,22 +1,21 @@
 extends Area2D
 @onready var enemy = $"."
 signal enemy_hp_changed
-var max_hp : int = 100
-var hp : int = max_hp
-var defense : int = 0
-var attack : int = 10
+@export var max_hp : int = 100
+@export var hp : int = max_hp
+@export var defense : int = 0
+@export var attack : int = 10
 
 
 func _ready():
 	load_game()
-
-func _process(delta):
-	save_game()
+	enemy.body_entered.connect(_on_body_entered)
 
 func take_damage(damage: int):
 	var final_damage = max(damage - defense, 0)
 	hp -= final_damage
 	emit_signal("enemy_hp_changed")
+	save_game()
 		
 func print_stats():
 	print("Hp: ", hp, "/", max_hp)
@@ -26,9 +25,11 @@ func print_stats():
 func poison_tick(amount: float):
 	hp -= amount
 	emit_signal("enemy_hp_changed")
+	save_game()
 
 func _on_body_entered(body):
 	turns.enemy_num = 1
+	save_game()
 	get_tree().change_scene_to_file("res://Scenes/battle_arena.tscn")
 
 func save():
@@ -42,11 +43,16 @@ func save():
 
 
 func save_game():
-	var save_game = FileAccess.open("res://SaveFiles/enemysave.json", FileAccess.WRITE)
-	var node = get_node(".")
-	var node_data = node.call("save")
-	var json_string = JSON.stringify(node_data)
-	save_game.store_line(json_string)
+	var save_file = FileAccess.open("res://SaveFiles/enemysave.json", FileAccess.WRITE)
+	if save_file != null:
+		var node = get_node(".")
+		var node_data = node.call("save")
+		var json_string = JSON.stringify(node_data)
+		save_file.store_line(json_string)
+		save_file.close()
+	else:
+		print("Failed to open save file.")
+		
 	
 func load_game():
 	if not FileAccess.file_exists("res://SaveFiles/enemysave.json"):
@@ -71,4 +77,4 @@ func load_game():
 		defense = node_data["defense"]
 		attack = node_data["attack"]
 		
-		save_game.close()
+	save_game.close()
