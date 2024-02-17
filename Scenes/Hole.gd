@@ -9,4 +9,4 @@ func _process(delta):
 	pass
 
 func _on_body_entered(body):
-	get_tree().change_scene_to_file("res://Scenes/world2.tscn")
+	get_tree().change_scene_to_file("user://Scenes/world2.tscn")

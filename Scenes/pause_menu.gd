@@ -121,10 +121,10 @@ func _on_stem_pressed():
 	stem_info.visible = false
 
 func load_game():
-	if not FileAccess.file_exists("res://SaveFiles/playersave.json"):
+	if not FileAccess.file_exists("user://SaveFiles/playersave.json"):
 		return 
 
-	var save_game = FileAccess.open("res://SaveFiles/playersave.json", FileAccess.READ)
+	var save_game = FileAccess.open("user://SaveFiles/playersave.json", FileAccess.READ)
 
 	while save_game.get_position() < save_game.get_length():
 		var json_string = save_game.get_line()

@@ -114,7 +114,7 @@ func handle_enemy_hp():
 	if current_enemy and current_enemy.hp <= 0:
 		player.position = original_player_position
 		player.save_game()
-		get_tree().change_scene_to_file("res://Scenes/world.tscn")
+		get_tree().change_scene_to_file("user://Scenes/world.tscn")
 
 func _on_rock_pressed():
 	current_enemy.take_damage(50)
