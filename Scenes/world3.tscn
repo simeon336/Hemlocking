@@ -1,15 +1,18 @@
-[gd_scene load_steps=18 format=3 uid="uid://dinqgscgwvkjo"]
+[gd_scene load_steps=23 format=3 uid="uid://dinqgscgwvkjo"]
 
-[ext_resource type="Script" path="res://Scenes/world3.gd" id="1_nxeyw"]
-[ext_resource type="Texture2D" uid="uid://dpv7bgdskq71d" path="res://art/19.07a Gentle Forest 3.0 ($0 palettes)/gentle sheets/gentle forest v01.png" id="2_o7bkw"]
+[ext_resource type="Script" path="res://Scenes/world.gd" id="1_oqfrr"]
+[ext_resource type="Texture2D" uid="uid://dpv7bgdskq71d" path="res://addons/art/19.07a Gentle Forest 3.0 ($0 palettes)/gentle sheets/gentle forest v01.png" id="2_o7bkw"]
 [ext_resource type="PackedScene" uid="uid://c6pgt0pxnlysq" path="res://Scenes/player.tscn" id="3_25apw"]
 [ext_resource type="PackedScene" uid="uid://bfc11chvbjfw3" path="res://Scenes/pause_menu.tscn" id="4_ojllf"]
 [ext_resource type="Script" path="res://Scripts/ProgressBar.gd" id="6_p647o"]
 [ext_resource type="Script" path="res://Scenes/rock.gd" id="7_w7m0a"]
 [ext_resource type="Script" path="res://Scenes/Plant.gd" id="8_sw16o"]
-[ext_resource type="PackedScene" uid="uid://dj33v15ckjqgs" path="res://Scenes/enemy3.tscn" id="8_u6w5b"]
 [ext_resource type="Script" path="res://Scenes/Teleport.gd" id="9_buq4c"]
+[ext_resource type="PackedScene" uid="uid://btblhtpiefjep" path="res://Scenes/enemy.tscn" id="10_16k2q"]
 [ext_resource type="Script" path="res://Scenes/Hole2.gd" id="10_pp601"]
+[ext_resource type="Script" path="res://Scenes/Hole.gd" id="11_nfkwg"]
+[ext_resource type="Script" path="res://Scenes/Log.gd" id="11_ynnen"]
+[ext_resource type="Script" path="res://Scenes/Win.gd" id="13_h66p2"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_qldrd"]
 resource_name = "collectables"
@@ -651,11 +654,17 @@ size = Vector2(14, 12)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pacno"]
 size = Vector2(16, 18)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_evsey"]
-size = Vector2(29, 15)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gkcp5"]
+size = Vector2(46, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kvvpu"]
+size = Vector2(23, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7w10l"]
+size = Vector2(78.5, 21)
 
 [node name="World" type="Node2D"]
-script = ExtResource("1_nxeyw")
+script = ExtResource("1_oqfrr")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -737,9 +746,6 @@ offset_bottom = 98.0
 scale = Vector2(0.604179, 0.604179)
 text = "Harvest"
 
-[node name="Enemy3" parent="." instance=ExtResource("8_u6w5b")]
-position = Vector2(460, 25)
-
 [node name="Teleport" type="Area2D" parent="."]
 script = ExtResource("9_buq4c")
 
@@ -756,9 +762,62 @@ offset_bottom = 40.0
 scale = Vector2(0.591326, 0.591326)
 text = "Teleport"
 
+[node name="Enemy" parent="." instance=ExtResource("10_16k2q")]
+position = Vector2(447, 33)
+max_hp = 250
+hp = 250
+defense = 10
+attack = 30
+level_num = 3
+
+[node name="Log" type="Area2D" parent="."]
+position = Vector2(111, -51)
+script = ExtResource("11_ynnen")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Log"]
+visible = false
+position = Vector2(415, -68)
+shape = SubResource("RectangleShape2D_gkcp5")
+
+[node name="Thirst" type="Label" parent="."]
+visible = false
+offset_left = 314.0
+offset_top = -113.0
+offset_right = 405.0
+offset_bottom = -87.0
+scale = Vector2(0.845727, 0.845727)
+text = "It's thirsty..."
+
+[node name="Water" type="Button" parent="."]
+visible = false
+offset_left = 336.0
+offset_top = -41.0
+offset_right = 391.0
+offset_bottom = -10.0
+scale = Vector2(0.667771, 0.667771)
+text = "Water"
+
 [node name="Hole" type="Area2D" parent="."]
-script = ExtResource("10_pp601")
+visible = false
+script = ExtResource("11_nfkwg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hole"]
-position = Vector2(510.5, -144.5)
-shape = SubResource("RectangleShape2D_evsey")
+position = Vector2(446.5, 270.5)
+shape = SubResource("RectangleShape2D_kvvpu")
+
+[node name="Hole2" type="Area2D" parent="."]
+position = Vector2(506, -133)
+script = ExtResource("10_pp601")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hole2"]
+position = Vector2(4, -10)
+shape = SubResource("RectangleShape2D_kvvpu")
+
+[node name="WinHole" type="Area2D" parent="."]
+visible = false
+position = Vector2(-228, 125)
+script = ExtResource("13_h66p2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WinHole"]
+position = Vector2(420, -245)
+shape = SubResource("RectangleShape2D_7w10l")

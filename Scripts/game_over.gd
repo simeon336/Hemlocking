@@ -5,10 +5,9 @@ func _ready():
 	respawn.pressed.connect(_on_respawn_pressed)
 
 func _on_respawn_pressed():
-	var dir = DirAccess.open("user://SaveFiles/")
-	dir.remove("user://SaveFiles/playersave.json")
-	dir.remove("user://SaveFiles/enemysave.json")
-	dir.remove("user://SaveFiles/enemy2save.json")
-	dir.remove("user://SaveFiles/enemy3save.json")
-	dir.remove("user://SaveFiles/enemy4save.json")
-	get_tree().change_scene_to_file("user://Scenes/world.tscn")
+	var dir = DirAccess.open("user://")
+	if dir.file_exists("user://playerdata.save"):
+		dir.remove("playerdata.save")
+	if dir.file_exists("user://enemydata.save"):
+		dir.remove("enemydata.save")
+	get_tree().change_scene_to_file("res://Scenes/world.tscn")

@@ -1,12 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://btihdvmxcvrn4"]
+[gd_scene load_steps=6 format=3 uid="uid://btihdvmxcvrn4"]
 
-[ext_resource type="Script" path="res://BattleArena.gd" id="1_uhq6b"]
+[ext_resource type="Script" path="res://Scenes/battle_arena.gd" id="1_dbqq1"]
 [ext_resource type="PackedScene" uid="uid://c6pgt0pxnlysq" path="res://Scenes/player.tscn" id="2_xqboh"]
 [ext_resource type="PackedScene" uid="uid://btblhtpiefjep" path="res://Scenes/enemy.tscn" id="3_xfh5j"]
 [ext_resource type="Script" path="res://Scripts/playerHp.gd" id="4_iwqa2"]
-[ext_resource type="PackedScene" uid="uid://c2hm180y30kjo" path="res://Scenes/enemy2.tscn" id="6_4h2ds"]
-[ext_resource type="PackedScene" uid="uid://dj33v15ckjqgs" path="res://Scenes/enemy3.tscn" id="9_c5s0a"]
-[ext_resource type="PackedScene" uid="uid://durv1dky32poc" path="res://Scenes/enemy4.tscn" id="11_lvdnl"]
 
 [sub_resource type="GDScript" id="GDScript_6eg7n"]
 script/source = "extends ProgressBar
@@ -31,7 +28,7 @@ func _process(delta):
 "
 
 [node name="BattleArena" type="Node2D"]
-script = ExtResource("1_uhq6b")
+script = ExtResource("1_dbqq1")
 
 [node name="Player" parent="." instance=ExtResource("2_xqboh")]
 position = Vector2(45, 56)
@@ -45,7 +42,6 @@ scale = Vector2(0.631717, 0.631717)
 text = "attack"
 
 [node name="Enemy" parent="." instance=ExtResource("3_xfh5j")]
-visible = false
 position = Vector2(177, 71)
 
 [node name="PlayerHP" type="ProgressBar" parent="."]
@@ -123,10 +119,6 @@ offset_bottom = 127.0
 scale = Vector2(0.648, 0.648)
 text = "Back"
 
-[node name="Enemy2" parent="." instance=ExtResource("6_4h2ds")]
-visible = false
-position = Vector2(177, 70)
-
 [node name="Rock" type="Button" parent="."]
 visible = false
 offset_left = 82.0
@@ -135,14 +127,6 @@ offset_right = 191.0
 offset_bottom = 145.0
 scale = Vector2(0.492128, 0.492128)
 text = "Throw a rock"
-
-[node name="Enemy3" parent="." instance=ExtResource("9_c5s0a")]
-visible = false
-position = Vector2(183, 62)
-
-[node name="Enemy4" parent="." instance=ExtResource("11_lvdnl")]
-visible = false
-position = Vector2(184, 66)
 
 [node name="daturaInfo" type="Label" parent="."]
 visible = false

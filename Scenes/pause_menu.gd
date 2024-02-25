@@ -5,6 +5,7 @@ signal quit
 signal potion
 signal seed
 signal stem
+var save_path = "user://playerdata.save"
 @onready var resumeButton = $MarginContainer/VBoxContainer/Resume
 @onready var quitButton = $MarginContainer/VBoxContainer/Quit
 @onready var itemsButton = $MarginContainer/VBoxContainer/Items
@@ -16,10 +17,17 @@ signal stem
 @onready var seed_info = $seedInfo
 @onready var stem_info = $stemInfo
 
-var seeds : int
-var stems : int
-var potions : int
-
+var max_hp : int = 100
+var hp : int = max_hp
+var defense : int = 0
+var attack : int = 20
+var is_in_combat : bool = false
+var toxicity : float = 0
+var seeds : int = 0
+var stems : int = 0
+var potions : int = 0
+var blood_vials : int = 0
+var rocks : int = 0
 func _ready():
 	potionButton.pressed.connect(_on_potion_pressed)
 	potionButton.mouse_entered.connect(_show_potion_info)
@@ -37,7 +45,6 @@ func _ready():
 	
 func _process(delta):
 	load_game()
-	
 	if seeds == 0 :
 		seedButton.visible = false
 
@@ -121,28 +128,19 @@ func _on_stem_pressed():
 	stem_info.visible = false
 
 func load_game():
-	if not FileAccess.file_exists("user://SaveFiles/playersave.json"):
-		return 
-
-	var save_game = FileAccess.open("user://SaveFiles/playersave.json", FileAccess.READ)
-
-	while save_game.get_position() < save_game.get_length():
-		var json_string = save_game.get_line()
-		var json = JSON.new()
-		
-		var parse_result = json.parse(json_string)
-		if not parse_result == OK:
-			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
-			continue
-				
-		var node_data = json.get_data()
-			
-		seeds = node_data["seeds"]
-		stems = node_data["stems"]
-		potions = node_data["potions"]
-		
-	save_game.close()
-
+	var file = FileAccess.open(save_path, FileAccess.READ)
+	if file != null:
+		max_hp = file.get_var(max_hp)
+		hp = file.get_var(hp)
+		defense = file.get_var(defense)
+		attack = file.get_var(attack)
+		is_in_combat = file.get_var(is_in_combat)
+		toxicity = file.get_var(toxicity)
+		seeds = file.get_var(seeds)
+		stems = file.get_var(stems)
+		potions = file.get_var(potions)
+		blood_vials = file.get_var(blood_vials)
+		rocks = file.get_var(rocks)
 
 func _on_back_pressed():
 	resumeButton.visible = true

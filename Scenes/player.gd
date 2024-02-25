@@ -1,8 +1,7 @@
 extends CharacterBody2D
 
 signal health_changed
-
-# Player properties
+var save_path = "user://playerdata.save"
 var max_hp : int = 100
 var hp : int = max_hp
 var defense : int = 0
@@ -26,7 +25,7 @@ func _process(delta):
 		return
 	if(hp <= 0):
 		save_game()
-		get_tree().change_scene_to_file("user://Scenes/game_over.tscn")
+		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
 		
 	if(get_tree().current_scene.name != "World"):
 		return
@@ -86,6 +85,9 @@ func heal(amount: int):
 	
 func eat_seed():
 	defense += 5
+	seeds -= 1
+	if seeds < 0:
+		seeds = 0
 	save_game()
 
 func print_stats():
@@ -96,65 +98,41 @@ func print_stats():
 func eat_stem():
 	toxicity += 5
 	heal(30)
+	stems -= 1
+	if stems < 0:
+		stems = 0
 	save_game()
 
-func save():
-	var save_data = {
-		"max_hp": max_hp,
-		"hp": hp,
-		"defense": defense,
-		"attack": attack,
-		"is_in_combat": is_in_combat,
-		"toxicity": toxicity,
-		"seeds": seeds,
-		"stems": stems,
-		"potions": potions,
-		"blood_vials": blood_vials,
-		"rocks": rocks
-	}
-	return save_data
-
-
-
 func save_game():
-<<<<<<< HEAD
-	print("yes")
-	var save_game = FileAccess.open("res://SaveFiles/playersave.json", FileAccess.WRITE)
-=======
-	var save_game = FileAccess.open("user://SaveFiles/playersave.json", FileAccess.WRITE)
->>>>>>> ce7f7940797844541d96fe3aecf36f3b6290cd46
-	var node = get_node(".")
-	var node_data = node.call("save")
-	var json_string = JSON.stringify(node_data)
-	save_game.store_line(json_string)
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	if file != null:
+		file.store_var(max_hp)
+		file.store_var(hp)
+		file.store_var(defense)
+		file.store_var(attack)
+		file.store_var(is_in_combat)
+		file.store_var(toxicity)
+		file.store_var(seeds)
+		file.store_var(stems)
+		file.store_var(potions)
+		file.store_var(blood_vials)
+		file.store_var(rocks)
+	else:
+		print("Error saving file player")
 	
 func load_game():
-	if not FileAccess.file_exists("user://SaveFiles/playersave.json"):
-		return  
-
-	var save_game = FileAccess.open("user://SaveFiles/playersave.json", FileAccess.READ)
-
-	while save_game.get_position() < save_game.get_length():
-		var json_string = save_game.get_line()
-		var json = JSON.new()
-		print(json_string)
-		var parse_result = json.parse(json_string)
-		if not parse_result == OK:
-			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
-			continue		
-			
-		var node_data = json.get_data()
-		
-		player.max_hp = node_data["max_hp"]
-		player.hp = node_data["hp"]
-		player.defense = node_data["defense"]
-		player.attack = node_data["attack"]
-		player.is_in_combat = node_data["is_in_combat"]
-		player.toxicity = node_data["toxicity"]
-		player.stems = node_data["stems"]
-		player.seeds = node_data["seeds"]
-		player.potions = node_data["potions"]
-		player.blood_vials = node_data["blood_vials"]
-		player.rocks = node_data["rocks"]
-		
-	save_game.close()
+	var file = FileAccess.open(save_path, FileAccess.READ)
+	if file != null:
+		max_hp = file.get_var(max_hp)
+		hp = file.get_var(hp)
+		defense = file.get_var(defense)
+		attack = file.get_var(attack)
+		is_in_combat = file.get_var(is_in_combat)
+		toxicity = file.get_var(toxicity)
+		seeds = file.get_var(seeds)
+		stems = file.get_var(stems)
+		potions = file.get_var(potions)
+		blood_vials = file.get_var(blood_vials)
+		rocks = file.get_var(rocks)
+	else:
+		print("no data loaded player")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bhnw6s6sh2fhx"]
 
-[ext_resource type="Texture2D" uid="uid://mfinw0v7elmf" path="res://art/Blue_witch/360_F_278516032_Ub3ZH5Hehic7acyNG9VFS5oNNdkS0neK.jpg" id="1_257ns"]
 [ext_resource type="Script" path="res://Scenes/main_menu.gd" id="1_pbvd2"]
+[ext_resource type="Texture2D" uid="uid://mfinw0v7elmf" path="res://addons/art/Blue_witch/360_F_278516032_Ub3ZH5Hehic7acyNG9VFS5oNNdkS0neK.jpg" id="2_2s4he"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -26,7 +26,7 @@ offset_top = -11.0
 offset_right = 715.0
 offset_bottom = 349.0
 scale = Vector2(0.33352, 0.377566)
-texture = ExtResource("1_257ns")
+texture = ExtResource("2_2s4he")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
